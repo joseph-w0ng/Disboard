@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>🎨 Whiteboard.js</title>
+
+    <meta name="author" content="over-engineer">
+    <meta name="description" content="HTML5 canvas real-time drawing using socket.io">
+    <meta name="keywords" content="whiteboard, drawing, socket-io, socketio, javascript">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../../socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+</head>
+
+<body>
+    <div class="container" style="padding:0px">
+        <div class="row">
+            <div class="col col-md-4">
+                <ul id="messages"></ul>
+                <form action="/" method="POST" id="chatForm">
+                    <input id="txt" autocomplete="off" autofocus="on" oninput="isTyping()" placeholder="Message..." /><button>Send</button>
+                </form>
+                <script>
+                    var socket = io.connect('http://localhost:3000');
+                    // submit text message without reload/refresh the page
+                    $('form').submit(function(e) {
+                        e.preventDefault(); // prevents page reloading
+                        socket.emit('chat_message', $('#txt').val());
+                        $('#txt').val('');
+                        return false;
+                    });
+                    // append the chat text message
+                    socket.on('chat_message', function(msg) {
+                        $('#messages').append($('<li>').html(msg));
+                    });
+                    // append text if someone is online
+                    socket.on('is_online', function(username) {
+                        $('#messages').append($('<li>').html(username));
+                    });
+                    // ask username
+                    var username = prompt('Please tell me your name');
+                    socket.emit('username', username);
+                </script>
+            </div>
+            <div class="col col-md-8">
+
+                <div id="container">
+                    <h1>Whiteboard demo</h1>
+
+                    <!-- Note that the id of our canvas is #myCanvas -->
+                    <canvas id="myCanvas" style="width:100%;"></canvas>
+
+
+
+                    <!-- Import jQuery, socket.io and our whiteboard.js -->
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+                    <script src="https://cdn.jsdelivr.net/gh/over-engineer/Socket.io-whiteboard/lib/whiteboard.js" integrity="sha384-lGajmend6yDyTY9CZMgcIQX0sFVzYbN+1WzaofEQ8+z8BXbH/DuYPohTY7OCQbQt" crossorigin="anonymous"></script>
+
+                    <!-- Our JavaScript code -->
+                    <script src="js/script.js"></script>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col">
+                <footer>
+                    <a href="https://github.com/over-engineer/Socket.io-whiteboard" target="_blank">
+Made with ♥️ by over-engineer
+</a>
+                </footer>
+            </div>
+        </div> -->
+    </div>
+</body>
+
+</html>
