@@ -1,3 +1,7 @@
-.board {
+#whiteboard {
     border: 1px solid black;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100px min-content;
 }
+
