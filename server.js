@@ -22,6 +22,8 @@ io.on('connection', (socket) => {
   // At this point a client has connected
   console.log(`A client has connected (id: ${socket.id})`);
 
+  socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+
   if (!(socket.id in connectedClients)) {
     connectedClients[socket.id] = {};
   }
@@ -29,31 +31,6 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log(`Client disconnected (id: ${socket.id})`);
     delete connectedClients[socket.id];
-  });
-
-  socket.on(socketEvents.DRAW, (data) => {
-    const client = connectedClients[socket.id];
-
-    client.prev = client.curr || data;
-    client.curr = data;
-
-    // Emit to all connected clients (including the one who originally sent it)
-    io.sockets.emit(socketEvents.DRAW, {
-      prev: {
-        x: client.prev.x,
-        y: client.prev.y,
-      },
-      curr: {
-        x: client.curr.x,
-        y: client.curr.y,
-      },
-      color: client.curr.color,
-      thickness: client.curr.thickness,
-    });
-  });
-
-  socket.on(socketEvents.DRAW_BEGIN_PATH, () => {
-    connectedClients[socket.id].curr = null;
   });
 });
 
