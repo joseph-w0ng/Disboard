@@ -30,6 +30,11 @@ body {
     overflow: hidden;
 }
 
+#container {
+    max-height: 100%;
+    overflow: hidden;
+}
+
 .colors {
     position: fixed;
 }
