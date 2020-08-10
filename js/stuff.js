@@ -29,7 +29,7 @@
   canvas.addEventListener('touchcancel', onMouseUp, false);
   canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
 
-  document.getElementById('container').ontouchend = (e) => {
+  document.getElementsByTagName('body')[0].ontouchend = (e) => {
       e.preventDefault();
   }
 
