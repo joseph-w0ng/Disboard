@@ -6,6 +6,10 @@
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
   var context = canvas.getContext('2d');
+  var rect = canvas.getBoundingClientRect();
+
+  var offx = rect.left;
+  var offy = rect.top;
 
   var current = {
     color: 'black'
@@ -39,12 +43,16 @@
     context.lineTo(x1, y1);
     context.strokeStyle = color;
     context.lineWidth = 2;
+    if(color == 'white') {
+        context.lineWidth = 50;
+    }
     context.stroke();
     context.closePath();
 
     if (!emit) { return; }
     var w = canvas.width;
     var h = canvas.height;
+    var rect = canvas.getBoundingClientRect();
 
     socket.emit('drawing', {
       x0: x0 / w,
@@ -57,21 +65,21 @@
 
   function onMouseDown(e){
     drawing = true;
-    current.x = e.clientX||e.touches[0].clientX;
-    current.y = e.clientY||e.touches[0].clientY;
+    current.x = (e.clientX||e.touches[0].clientX) - offx;
+    current.y = (e.clientY||e.touches[0].clientY) - offy;
   }
 
   function onMouseUp(e){
     if (!drawing) { return; }
     drawing = false;
-    drawLine(current.x, current.y, e.clientX||e.touches[0].clientX, e.clientY||e.touches[0].clientY, current.color, true);
+    drawLine(current.x, current.y, (e.clientX||e.touches[0].clientX) - offx, (e.clientY||e.touches[0].clientY) - offy, current.color, true);
   }
 
   function onMouseMove(e){
     if (!drawing) { return; }
-    drawLine(current.x, current.y, e.clientX||e.touches[0].clientX, e.clientY||e.touches[0].clientY, current.color, true);
-    current.x = e.clientX||e.touches[0].clientX;
-    current.y = e.clientY||e.touches[0].clientY;
+    drawLine(current.x, current.y, (e.clientX||e.touches[0].clientX) - offx, (e.clientY||e.touches[0].clientY) - offy, current.color, true);
+    current.x = (e.clientX||e.touches[0].clientX) - offx;
+    current.y = (e.clientY||e.touches[0].clientY) - offy;
   }
 
   function onColorUpdate(e){
@@ -94,6 +102,10 @@
   function onDrawingEvent(data){
     var w = canvas.width;
     var h = canvas.height;
+    var rect = canvas.getBoundingClientRect();
+
+    var offx = rect.left;
+    var offy = rect.top;
     drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
   }
 

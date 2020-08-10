@@ -25,13 +25,19 @@ io.on('connection', (socket) => {
     socket.emit('drawing', history[data]);
   }
 
-  console.log(history);
   console.log(`A client has connected (id: ${socket.id})`);
 
   socket.on('drawing', (data) => {
+    if(history.length>6000) {
+      history.shift();
+    }
     history.push(data);
     socket.broadcast.emit('drawing', data);
   });
+
+  socket.on('clear', (data) => {
+    history.length = 0;
+  })
 
   if (!(socket.id in connectedClients)) {
     connectedClients[socket.id] = {};

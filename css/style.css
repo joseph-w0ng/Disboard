@@ -35,8 +35,15 @@ h1 {
     width: 48px;
 }
 
+.color.white {
+    vertical-align: top;
+    height: 47px;
+    width: 47px;
+}
+
 .color.black { background-color: black; }
 .color.red { background-color: red; }
 .color.green { background-color: green; }
 .color.blue { background-color: blue; }
 .color.yellow { background-color: yellow; }
+.color.white { background-color: white; border: 1px solid; border-color: black; font-family: sans-serif;}
