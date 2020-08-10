@@ -1,41 +1,4 @@
 {
-<<<<<<< HEAD
-  "name": "hack-this-education",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "express": "^4.17.1",
-    "nodemon": "^2.0.4",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "socketio": "^1.0.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "server": "nodemon server/server.js"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-=======
   "name": "hackthis-whiteboard",
   "version": "1.0.0",
   "description": "Real-time drawing using socket.io",
@@ -58,6 +21,5 @@
     "express": "^4.17.1",
     "socket-events": "^1.2.0",
     "socket.io": "^2.3.0"
->>>>>>> c79535d01e573e3b6e33e6dfcbb3201d5ae4d322
   }
 }
