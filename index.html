@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>HackThis Whiteboard</title>
+
+    <meta name="description" content="HTML5 canvas real-time drawing using socket.io">
+    <meta name="keywords" content="whiteboard, drawing, socket-io, socketio, javascript">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  
+  <body>
+    <div id="container">
+        <div class="colors">
+            <div class="color black"></div>
+            <div class="color red"></div>
+            <div class="color green"></div>
+            <div class="color blue"></div>
+            <div class="color yellow"></div>
+        </div>
+      <h1>Whiteboard demo</h1>
+
+      <!-- Note that the id of our canvas is #myCanvas -->
+      <canvas id="myCanvas"></canvas>
+
+      <!-- {% comment %} <footer>
+        <a href="https://github.com/over-engineer/Socket.io-whiteboard" target="_blank">
+          Made with ♥️ by over-engineer
+        </a>
+      </footer> {% endcomment %} -->
+    </div>
+
+    <!-- Import jQuery, socket.io and our whiteboard.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+            integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/over-engineer/Socket.io-whiteboard/lib/whiteboard.js"
+            integrity="sha384-lGajmend6yDyTY9CZMgcIQX0sFVzYbN+1WzaofEQ8+z8BXbH/DuYPohTY7OCQbQt"
+            crossorigin="anonymous"></script>
+
+    <!-- Our JavaScript code -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
