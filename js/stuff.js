@@ -8,6 +8,7 @@
   var clear = document.getElementById('clear');
   var context = canvas.getContext('2d');
   var rect = canvas.getBoundingClientRect();
+  var load = true;
 
   var offx = rect.left;
   var offy = rect.top;
@@ -35,21 +36,25 @@
 
   socket.on('drawing', onDrawingEvent);
 
+  socket.on('clear', onClearUpdate);
+
   window.addEventListener('resize', onResize, false);
+  window.addEventListener('load', function(){load = true;console.log('reloaded')}, false);
   onResize();
 
 
   function drawLine(x0, y0, x1, y1, color, emit){
-    context.beginPath();
-    context.moveTo(x0, y0);
-    context.lineTo(x1, y1);
-    context.strokeStyle = color;
-    context.lineWidth = 2;
     if(color == 'white') {
-        context.lineWidth = 50;
+        context.clearRect(x0 - 25, y0 - 25, 50, 50);
+    } else {
+        context.beginPath();
+        context.moveTo(x0, y0);
+        context.lineTo(x1, y1);
+        context.strokeStyle = color;
+        context.lineWidth = 2;
+        context.stroke();
+        context.closePath();
     }
-    context.stroke();
-    context.closePath();
 
     if (!emit) { return; }
     var w = canvas.width;
@@ -111,8 +116,6 @@
     var h = canvas.height;
     var rect = canvas.getBoundingClientRect();
 
-    var offx = rect.left;
-    var offy = rect.top;
     drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
   }
 
@@ -120,6 +123,12 @@
   function onResize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    // console.log('here');
+    if(!load) {
+        socket.emit('resize', {});
+    } else {
+        load = false;
+    }
   }
 
 })();

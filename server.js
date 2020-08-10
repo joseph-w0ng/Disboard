@@ -6,10 +6,20 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 const socketEvents = require('./socket-events');
+const { count } = require('console');
+
+const setIntervalAsync = (fn, ms) => {
+  fn().then(() => {
+    setTimeout(() => setIntervalAsync(fn, ms), ms);
+  });
+};
 
 // An object to store connected clients and their data
 const connectedClients = {};
+
+// Stores previous draw data
 var history = [];
+var counter = 0;
 
 // Serve the static files
 app.use('/css', express.static(`${__dirname}/css`));
@@ -21,9 +31,20 @@ app.get('/', (req, res) => {
 // Socket.io connection handler
 io.on('connection', (socket) => {
   // At this point a client has connected
-  for(data in history) {
-    socket.emit('drawing', history[data]);
-  }
+  // for(data in history) {
+  //   socket.emit('drawing', history[data]);
+  // }
+
+  setTimeout(function drawload() {
+    if(counter >= history.length) {
+      counter = 0;
+    } else {
+      socket.emit('drawing', history[counter]);
+      // console.log(history[counter]);
+      counter++;
+      setTimeout(drawload, 5);
+    }
+  }, 5);
 
   console.log(`A client has connected (id: ${socket.id})`);
 
@@ -37,7 +58,14 @@ io.on('connection', (socket) => {
 
   socket.on('clear', (data) => {
     history.length = 0;
-  })
+    socket.broadcast.emit('clear', {});
+  });
+
+  socket.on('resize', (data) => {
+    for(data in history) {
+      socket.emit('drawing', history[data]);
+    }
+  });
 
   if (!(socket.id in connectedClients)) {
     connectedClients[socket.id] = {};
