@@ -3,12 +3,14 @@
 (function() {
 
   var socket = io();
+  var clientId = null;
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
   var clear = document.getElementById('clear');
   var context = canvas.getContext('2d');
   var rect = canvas.getBoundingClientRect();
   var load = true;
+  var roomId = null;
 
   var offx = rect.left;
   var offy = rect.top;
@@ -17,6 +19,9 @@
     color: 'black'
   };
   var drawing = false;
+
+  $('#container').hide();
+  $('#roomId').attr('disabled', true);
 
   canvas.addEventListener('mousedown', onMouseDown, false);
   canvas.addEventListener('mouseup', onMouseUp, false);
@@ -34,9 +39,17 @@
   }
   clear.addEventListener('click', onClear, false);
 
+  socket.on('connect', () => {
+    clientId = socket.id;
+  });
+
   socket.on('drawing', onDrawingEvent);
 
   socket.on('clear', onClearUpdate);
+
+  socket.on('roomJoined', (info) => {
+    roomId = info.roomId;
+  });
 
   window.addEventListener('resize', onResize, false);
   window.addEventListener('load', function(){load = true;console.log('reloaded')}, false);
@@ -66,7 +79,8 @@
       y0: y0 / h,
       x1: x1 / w,
       y1: y1 / h,
-      color: color
+      color: color,
+      roomId: roomId
     });
   }
 
@@ -100,7 +114,7 @@
   function onClearUpdate(e, emit) {
     context.clearRect(0,0,canvas.width,canvas.height);
     if(!emit) { return; }
-    socket.emit('clear', {});
+    socket.emit('clear', {roomId: roomId});
   }
 
   // limit the number of events per second
@@ -128,12 +142,45 @@
   function onResize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    // console.log('here');
+
     if(!load) {
         socket.emit('resize', {});
     } else {
         load = false;
     }
   }
+
+  $('#createOption').click( () => {
+    $('#roomId').attr('disabled', true);
+  });
+
+  $('#joinOption').click( () => {
+    $('#roomId').attr('disabled', false);
+  });
+
+  $('#enterRoom').click( () => {
+    $('#intro-wrapper').hide();
+    $('#container').show();
+    let name = $('#name').val();
+    if ($('#roomId').is(':disabled')) {
+      let info = {
+        id: clientId,
+        name: name
+      };
+
+      socket.emit('create', info);
+    }
+    else {
+
+      let roomId = $('#roomId').val();
+      let info = {
+        id: clientId,
+        name: name,
+        roomId: roomId
+      };
+
+      socket.emit('join', info);
+    }
+  });
 
 })();

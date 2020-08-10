@@ -1,30 +1,4 @@
 {
-<<<<<<< HEAD
-  "name": "hackthiseducation",
-  "version": "1.0.0",
-  "description": "Collaborative whiteboard for discussion section worksheets.",
-  "main": "server.js",
-  "dependencies": {
-    "express": "^4.17.1",
-    "nodemon": "^2.0.4",
-    "socketio": "^1.0.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "nodemon server.js",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JosephWong123/HackThisEducation.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JosephWong123/HackThisEducation/issues"
-  },
-  "homepage": "https://github.com/JosephWong123/HackThisEducation#readme"
-=======
   "name": "hackthis-whiteboard",
   "version": "1.0.0",
   "description": "Real-time drawing using socket.io",
@@ -48,5 +22,4 @@
     "socket-events": "^1.2.0",
     "socket.io": "^2.3.0"
   }
->>>>>>> 1b87237c6e57d1cc9336fa05cb71b6ec55faea24
 }
