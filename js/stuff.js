@@ -5,6 +5,7 @@
   var socket = io();
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
+  var clear = document.getElementById('clear');
   var context = canvas.getContext('2d');
   var rect = canvas.getBoundingClientRect();
 
@@ -30,6 +31,7 @@
   for (var i = 0; i < colors.length; i++){
     colors[i].addEventListener('click', onColorUpdate, false);
   }
+  clear.addEventListener('click', onClearUpdate, false);
 
   socket.on('drawing', onDrawingEvent);
 
@@ -84,6 +86,11 @@
 
   function onColorUpdate(e){
     current.color = e.target.className.split(' ')[1];
+  }
+
+  function onClearUpdate(e) {
+    context.clearRect(0,0,canvas.width,canvas.height);
+    socket.emit('clear', {});
   }
 
   // limit the number of events per second
