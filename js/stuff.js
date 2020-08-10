@@ -32,7 +32,7 @@
   for (var i = 0; i < colors.length; i++){
     colors[i].addEventListener('click', onColorUpdate, false);
   }
-  clear.addEventListener('click', onClearUpdate, false);
+  clear.addEventListener('click', onClear, false);
 
   socket.on('drawing', onDrawingEvent);
 
@@ -93,8 +93,13 @@
     current.color = e.target.className.split(' ')[1];
   }
 
-  function onClearUpdate(e) {
+  function onClear(e) {
+    onClearUpdate(e, true);
+  }
+
+  function onClearUpdate(e, emit) {
     context.clearRect(0,0,canvas.width,canvas.height);
+    if(!emit) { return; }
     socket.emit('clear', {});
   }
 
