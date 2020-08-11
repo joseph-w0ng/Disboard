@@ -137,8 +137,8 @@ io.on('connection', (socket) => {
   //   connectedClients[socket.id] = {};
   // }
 
-  socket.on('getQuestions', (data) => {
-    console.log("getQuestions");
+  socket.on('getAssignment', (data) => {
+    console.log("getAssignment");
     //console.log(data.userid);
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     async function run() {
@@ -146,14 +146,14 @@ io.on('connection', (socket) => {
         await client.connect();
 
         const database = client.db('hackthis');
-        const collection = database.collection('questions');
+        const collection = database.collection('assignments');
 
-        const query = { "userid":data.userid };
-        const cursor = collection.find(query);
+        const query = { "instructorid":data.userid , "name":data.assignmentid};
+        const assignment = await collection.findOne(query);
         //await cursor.forEach(console.dir);
-        var questionsArray = await cursor.toArray();
-        console.log(questionsArray);
-        socket.emit('getQuestionsResponse', {"questions":questionsArray});
+        //var questionsArray = await cursor.toArray();
+        //console.log(assignment);
+        socket.emit('getAssignmentResponse', {"assignment":assignment});
 
       } finally {
         await client.close();
@@ -171,19 +171,37 @@ io.on('connection', (socket) => {
         await client.connect();
 
         const database = client.db('hackthis');
-        const collection = database.collection('questions');
+        const collection = database.collection('assignments');
 
-        const query = { "userid":data.userid, "assignmentid":data.assignmentid, "question":data.question };
-        const cursor = collection.insertOne(query, function(err,res) {
+        const query = { "instructorid":data.instructorid, "name":data.assignmentid};
+        const update = { $push: {"questions":data.question} };
+        
+        const cursor = collection.updateOne(
+            query,
+            update,
+            {
+              upsert:true,
+            }
+        , function(err, res) {
           if (err) {
             socket.emit('addQuestionResponse', {"success":false});
             console.log(err.message);
             throw err;
           } else {
-          console.log("1 document inserted");
-          socket.emit('addQuestionResponse', {"success":true});
+            console.log("Update/Upsert successful");
+            socket.emit('addQuestionResponse', {"success":true});
           }
         });
+        // const cursor = collection.insertOne(query, function(err,res) {
+        //   if (err) {
+        //     socket.emit('addQuestionResponse', {"success":false});
+        //     console.log(err.message);
+        //     throw err;
+        //   } else {
+        //   console.log("1 document inserted");
+        //   socket.emit('addQuestionResponse', {"success":true});
+        //   }
+        // });
       } finally {
         await client.close();
       }
