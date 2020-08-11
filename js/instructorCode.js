@@ -10,6 +10,7 @@
 
     // instructorSubmitButton.addEventListener("click", getQuestions, false);
     $("#getAssignmentSubmit").click(() => {
+        $("#assignmentQuestions").hide();
         userId = $("#userId").val();
         assignmentId = $("#assignmentId").val();
         let info = {
@@ -22,6 +23,7 @@
     $("#newAssignmentSubmit").click(() => {
         userId = $("#userId").val();
         assignmentId = $("#assignmentId").val();
+        $("#inputs").empty();
         $("#assignmentQuestions").show();
     });
 
@@ -35,6 +37,8 @@
         $(".questions").each(function(i, question) {
             questions.push($(question).val());
         });
+        var userId = $("#userId").val();
+        var assignmentId = $("#assignmentId").val();
         let info = {
             "userid": userId, //#aTODO: Add entry box
             "assignmentid": assignmentId, //#TODO: Add entry box
@@ -51,7 +55,7 @@
             var new_input = "<input type='text' class='questions' value='" + question +"'>";
             $("#inputs").append(new_input);
         }
-
+        $("#assignmentQuestions").show();
 
         // var resultHTML = "<table><tr><td>_id</td><td>userid</td><td>assignmentid</td><td>question</td></tr>";
         // data.questions.forEach(function (question, index) {
@@ -66,7 +70,7 @@
 
     socket.on('addQuestionResponse', (data) => {
         console.log("Response received: " + data);
-        resultDiv.innerHTML = "<p>Response received: " + data.success + "</p>"
+        resultDiv.innerHTML = "<p>Response received: " + data.success + "</p>";
     })
 
 })();

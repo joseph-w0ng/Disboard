@@ -137,8 +137,8 @@ io.on('connection', (socket) => {
   //   connectedClients[socket.id] = {};
   // }
 
-  socket.on('getAssignment', (data) => {
-    console.log("getAssignment");
+  socket.on('getQuestions', (data) => {
+    console.log("getQuestions");
     //console.log(data.userid);
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     async function run() {
@@ -146,14 +146,15 @@ io.on('connection', (socket) => {
         await client.connect();
 
         const database = client.db('hackthis');
-        const collection = database.collection('assignments-jo');
+        const collection = database.collection('assignments');
 
         const query = { "userid":data.userid, "assignmentid": data.assignmentid };
-        const cursor = collection.find(query).project({questions: 1});
+        const questions = await collection.findOne(query, {projection: {questions: 1 }});
         //await cursor.forEach(console.dir);
-        var questionsArray = await cursor.toArray();
-        console.log(questionsArray[0].questions);
-        socket.emit('getQuestionsResponse', {"questions":questionsArray[0]});
+        //var questionsArray = await cursor.toArray();
+        //console.log(questionsArray[0].questions); 
+        console.log(questions);
+        socket.emit('getQuestionsResponse', {"questions":questions});
 
       } finally {
         await client.close();
@@ -172,10 +173,16 @@ io.on('connection', (socket) => {
         await client.connect();
 
         const database = client.db('hackthis');
-        const collection = database.collection('assignments-jo');
+        const collection = database.collection('assignments');
 
         const query = { "userid":data.userid, "assignmentid":data.assignmentid};
-        const cursor = collection.update(query, {$set: {'questions': data.questions}}, function(err,res) {
+        const cursor = collection.updateOne(query, {
+          $set: {
+            'questions': data.questions
+          }
+        }, {
+          upsert:true,
+        }, function(err,res) {
           if (err) {
             socket.emit('addQuestionResponse', {"success":false});
             console.log(err.message);
