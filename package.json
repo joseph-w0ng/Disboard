@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "socket-events": "^1.2.0",
     "socket.io": "^2.3.0"
   }
 }

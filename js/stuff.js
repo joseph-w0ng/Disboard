@@ -155,7 +155,7 @@
     canvas.height = window.innerHeight;
 
     if(!load) {
-        socket.emit('resize', {});
+        socket.emit('resize', {roomId: roomId});
     } else {
         load = false;
     }

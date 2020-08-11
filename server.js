@@ -5,7 +5,6 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-const socketEvents = require('./socket-events');
 const { count } = require('console');
 const { connected } = require('process');
 
@@ -119,6 +118,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('resize', (data) => {
+    let history = rooms[data.roomId].history;
     for(data in history) {
       socket.emit('drawing', history[data]);
     }
