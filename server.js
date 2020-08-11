@@ -146,14 +146,14 @@ io.on('connection', (socket) => {
         await client.connect();
 
         const database = client.db('hackthis');
-        const collection = database.collection('questions');
+        const collection = database.collection('assignments-jo');
 
-        const query = { "userid":data.userid };
-        const cursor = collection.find(query);
+        const query = { "userid":data.userid, "assignmentid": data.assignmentid };
+        const cursor = collection.find(query).project({questions: 1});
         //await cursor.forEach(console.dir);
         var questionsArray = await cursor.toArray();
-        console.log(questionsArray);
-        socket.emit('getQuestionsResponse', {"questions":questionsArray});
+        console.log(questionsArray[0].questions);
+        socket.emit('getQuestionsResponse', {"questions":questionsArray[0]});
 
       } finally {
         await client.close();
@@ -162,8 +162,9 @@ io.on('connection', (socket) => {
     run().catch(console.dir);
   })
 
-  socket.on("addQuestion", (data) => {
-    console.log("addQuestion");
+  socket.on("addQuestions", (data) => {
+    console.log("addQuestions");
+    console.log(data);
     //console.log(data.userid);
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     async function run() {
@@ -171,17 +172,17 @@ io.on('connection', (socket) => {
         await client.connect();
 
         const database = client.db('hackthis');
-        const collection = database.collection('questions');
+        const collection = database.collection('assignments-jo');
 
-        const query = { "userid":data.userid, "assignmentid":data.assignmentid, "question":data.question };
-        const cursor = collection.insertOne(query, function(err,res) {
+        const query = { "userid":data.userid, "assignmentid":data.assignmentid};
+        const cursor = collection.update(query, {$set: {'questions': data.questions}}, function(err,res) {
           if (err) {
             socket.emit('addQuestionResponse', {"success":false});
             console.log(err.message);
             throw err;
           } else {
-          console.log("1 document inserted");
-          socket.emit('addQuestionResponse', {"success":true});
+            console.log("1 document inserted");
+            socket.emit('addQuestionResponse', {"success":true});
           }
         });
       } finally {
