@@ -3,7 +3,6 @@
 (function() {
 
   var socket = io();
-  var clientId = null;
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
   var clear = document.getElementById('clear');
@@ -46,10 +45,6 @@
   $('#decreaseThickness').click(() => {
     if (lineWidth > 1)
       lineWidth--;
-  });
-
-  socket.on('connect', () => {
-    clientId = socket.id;
   });
 
   socket.on('drawing', onDrawingEvent);
@@ -173,21 +168,20 @@
     $('#intro-wrapper').hide();
     $('#container').show();
     let name = $('#name').val();
+    let assignmentId = $('#assignmentId').val();
     if ($('#roomId').is(':disabled')) {
       let info = {
-        id: clientId,
-        name: name
+        name: name,
+        assignmentId: assignmentId
       };
 
       socket.emit('create', info);
     }
     else {
-
       let roomId = $('#roomId').val();
       let info = {
-        id: clientId,
         name: name,
-        roomId: roomId
+        roomId: roomId,
       };
 
       socket.emit('join', info);
