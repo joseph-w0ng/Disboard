@@ -13,8 +13,8 @@
   var roomId = null;
   var lineWidth = 2;
 
-  var offx = rect.left;
-  var offy = rect.top;
+  let offx = rect.x;
+  let offy = rect.y;
 
   var current = {
     color: 'black'
@@ -65,7 +65,6 @@
   window.addEventListener('load', function(){load = true;console.log('reloaded')}, false);
   onResize();
 
-
   function drawLine(x0, y0, x1, y1, color, thickness, emit){
     if(color == 'white') {
         context.clearRect(x0 - 25, y0 - 25, 50, 50);
@@ -78,11 +77,12 @@
         context.stroke();
         context.closePath();
     }
+    console.log(offx);
+    console.log(offy);
 
     if (!emit) { return; }
     var w = canvas.width;
     var h = canvas.height;
-    var rect = canvas.getBoundingClientRect();
 
     socket.emit('drawing', {
       x0: x0 / w,
@@ -178,6 +178,9 @@
         id: clientId,
         name: name
       };
+      rect = canvas.getBoundingClientRect();
+      offx = rect.x;
+      offy = rect.y;
 
       socket.emit('create', info);
     }
