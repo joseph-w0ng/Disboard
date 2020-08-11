@@ -66,17 +66,19 @@ io.on('connection', (socket) => {
 
   socket.on('create', (info) => {
     let roomId = guid();
+    let assignmentId = info.assignmentId;
     let clientId = socket.id;
     while (roomId in rooms) {
       roomId = guid();
     }
-    connectedClients[info.id] = roomId;
+    connectedClients[clientId] = roomId;
     roomInfo = {
       clients: [],
-      history: []
+      history: [],
+      assignment: assignmentId
     };
 
-    roomInfo.clients.push(info.id);
+    roomInfo.clients.push(clientId);
     socket.join(roomId);
 
     rooms[roomId] = roomInfo;
@@ -85,14 +87,14 @@ io.on('connection', (socket) => {
 
   socket.on('join', (info) => {
     let roomId = info.roomId;
+  
     if (!(roomId in rooms)) {
       return;
     }
     // let name = info.name;
-    let clientId = info.id;
-    console.log(clientId);
+    let clientId = socket.id;
     let room = rooms[roomId];
-    connectedClients[info.id] = roomId;
+    connectedClients[clientId] = roomId;
     room.clients.push(clientId);
 
     socket.join(roomId);
@@ -119,7 +121,11 @@ io.on('connection', (socket) => {
 
   socket.on('resize', (data) => {
     let history = rooms[data.roomId].history;
+<<<<<<< HEAD
     for(data in history) {
+=======
+    for (data in history) {
+>>>>>>> e7252cb0eb6a145c12bde6a38051f51d046ca080
       socket.emit('drawing', history[data]);
     }
   });
