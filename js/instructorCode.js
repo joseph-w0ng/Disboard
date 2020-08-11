@@ -27,11 +27,11 @@
     socket.on('getQuestionsResponse', (data) => {
         console.log(data.questions);
 
-        var resultHTML = "<table><tr><td>Userid</td><td>Assignmentid</td><td>Question</td><td></td></tr>";
+        var resultHTML = "<table><tr><td>_id</td><td>userid</td><td>assignmentid</td><td>question</td></tr>";
         data.questions.forEach(function (question, index) {
             //console.log(question.userid);
-            resultHTML += ("<tr><td>"+question.userid+"</td><td>"
-            +question.assignmentid+"</td><td>"+question.question+"</td><td><button>Deploy</button</td></tr>");
+            resultHTML += ("<tr><td><button val='"+question._id+"'>"+question._id+"</button</td><td>"+question.userid+"</td><td>"
+            +question.assignmentid+"</td><td>"+question.question+"</td></tr>");
         });
 
         resultHTML += ("</table>");
