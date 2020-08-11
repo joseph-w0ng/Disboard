@@ -11,6 +11,18 @@
   </head>
   
   <body>
+    <div id="intro-wrapper">
+      <div id="buttons">
+          <button id="createOption">Create Room</button>
+          <button id="joinOption">Join Room</button>
+      </div>
+      <input type="text" id="roomId" placeholder="Room ID">
+      <input type="text" id="name" placeholder="Your Name">
+      <button id="enterRoom">Submit</button>
+      <div class="error">
+          <p id="errorMsg"></p>
+      </div>
+    </div>
     <div id="container">
         <div class="colors">
             <div class="color black"></div>
@@ -25,19 +37,6 @@
         </div>
 
       <canvas id="myCanvas" class="whiteboard"></canvas>
-    </div>
-    <div id="intro-wrapper">
-      <div id="buttons">
-          <button id="createOption">Create Room</button>
-          <button id="joinOption">Join Room</button>
-      </div>
-      <input type="text" id="roomId" placeholder="Room ID">
-      <input type="text" id="assignmentId" placeholder="Assignment ID">
-      <input type="text" id="name" placeholder="Your Name">
-      <button id="enterRoom">Submit</button>
-      <div class="error">
-          <p id="errorMsg"></p>
-      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
