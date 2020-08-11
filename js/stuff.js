@@ -3,7 +3,6 @@
 (function() {
 
   var socket = io();
-  var clientId = null;
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
   var clear = document.getElementById('clear');
@@ -46,10 +45,6 @@
   $('#decreaseThickness').click(() => {
     if (lineWidth > 1)
       lineWidth--;
-  });
-
-  socket.on('connect', () => {
-    clientId = socket.id;
   });
 
   socket.on('drawing', onDrawingEvent);
@@ -155,7 +150,7 @@
     canvas.height = window.innerHeight;
 
     if(!load) {
-        socket.emit('resize', {});
+        socket.emit('resize', {roomId: roomId});
     } else {
         load = false;
     }
@@ -175,7 +170,6 @@
     let name = $('#name').val();
     if ($('#roomId').is(':disabled')) {
       let info = {
-        id: clientId,
         name: name
       };
 
@@ -185,7 +179,6 @@
 
       let roomId = $('#roomId').val();
       let info = {
-        id: clientId,
         name: name,
         roomId: roomId
       };
