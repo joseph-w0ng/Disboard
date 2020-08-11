@@ -3,7 +3,6 @@
 (function() {
 
   var socket = io();
-  var clientId = null;
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
   var clear = document.getElementById('clear');
@@ -13,8 +12,8 @@
   var roomId = null;
   var lineWidth = 2;
 
-  var offx = rect.left;
-  var offy = rect.top;
+  let offx = rect.x;
+  let offy = rect.y;
 
   var current = {
     color: 'black'
@@ -30,7 +29,10 @@
   canvas.addEventListener('mousemove', throttle(onMouseMove, 10), false);
   
   //Touch support for mobile devices
-  canvas.addEventListener('touchstart', onMouseDown, false);
+  canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    onMouseDown(e);
+  }, false);
   canvas.addEventListener('touchend', onMouseUp, false);
   canvas.addEventListener('touchcancel', onMouseUp, false);
   canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
@@ -48,10 +50,6 @@
       lineWidth--;
   });
 
-  socket.on('connect', () => {
-    clientId = socket.id;
-  });
-
   socket.on('drawing', onDrawingEvent);
 
   socket.on('clear', onClearUpdate);
@@ -65,7 +63,6 @@
   window.addEventListener('load', function(){load = true;console.log('reloaded')}, false);
   onResize();
 
-
   function drawLine(x0, y0, x1, y1, color, thickness, emit){
     if(color == 'white') {
         context.clearRect(x0 - 25, y0 - 25, 50, 50);
@@ -78,11 +75,12 @@
         context.stroke();
         context.closePath();
     }
+    console.log(offx);
+    console.log(offy);
 
     if (!emit) { return; }
     var w = canvas.width;
     var h = canvas.height;
-    var rect = canvas.getBoundingClientRect();
 
     socket.emit('drawing', {
       x0: x0 / w,
@@ -173,21 +171,23 @@
     $('#intro-wrapper').hide();
     $('#container').show();
     let name = $('#name').val();
+    let assignmentId = $('#assignmentId').val();
     if ($('#roomId').is(':disabled')) {
       let info = {
-        id: clientId,
-        name: name
+        name: name,
+        assignmentId: assignmentId
       };
+      rect = canvas.getBoundingClientRect();
+      offx = rect.x;
+      offy = rect.y;
 
       socket.emit('create', info);
     }
     else {
-
       let roomId = $('#roomId').val();
       let info = {
-        id: clientId,
         name: name,
-        roomId: roomId
+        roomId: roomId,
       };
 
       socket.emit('join', info);
