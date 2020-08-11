@@ -168,19 +168,20 @@
     $('#intro-wrapper').hide();
     $('#container').show();
     let name = $('#name').val();
+    let assignmentId = $('#assignmentId').val();
     if ($('#roomId').is(':disabled')) {
       let info = {
-        name: name
+        name: name,
+        assignmentId: assignmentId
       };
 
       socket.emit('create', info);
     }
     else {
-
       let roomId = $('#roomId').val();
       let info = {
         name: name,
-        roomId: roomId
+        roomId: roomId,
       };
 
       socket.emit('join', info);

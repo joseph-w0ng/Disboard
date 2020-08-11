@@ -67,6 +67,7 @@ io.on('connection', (socket) => {
 
   socket.on('create', (info) => {
     let roomId = guid();
+    let assignmentId = info.assignmentId;
     let clientId = socket.id;
     while (roomId in rooms) {
       roomId = guid();
@@ -74,7 +75,8 @@ io.on('connection', (socket) => {
     connectedClients[clientId] = roomId;
     roomInfo = {
       clients: [],
-      history: []
+      history: [],
+      assignment: assignmentId
     };
 
     roomInfo.clients.push(clientId);
@@ -86,6 +88,7 @@ io.on('connection', (socket) => {
 
   socket.on('join', (info) => {
     let roomId = info.roomId;
+  
     if (!(roomId in rooms)) {
       return;
     }
