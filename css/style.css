@@ -69,6 +69,30 @@ body {
     text-align: center;
 }
 
+#increaseThickness {
+    vertical-align: top;
+    display: inline-block;
+    height: 47px;
+    width: 79px;
+    line-height: 24px;
+    border: 1px solid;
+    border-color: red;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+#decreaseThickness   {
+    vertical-align: top;
+    display: inline-block;
+    height: 47px;
+    width: 79px;
+    line-height: 24px;
+    border: 1px solid;
+    border-color: red;
+    font-family: sans-serif;
+    text-align: center;
+}
+
 .color.black { background-color: black; }
 .color.red { background-color: red; }
 .color.green { background-color: green; }

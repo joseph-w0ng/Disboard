@@ -11,6 +11,7 @@
   var rect = canvas.getBoundingClientRect();
   var load = true;
   var roomId = null;
+  var lineWidth = 2;
 
   var offx = rect.left;
   var offy = rect.top;
@@ -38,6 +39,14 @@
     colors[i].addEventListener('click', onColorUpdate, false);
   }
   clear.addEventListener('click', onClear, false);
+  $('#increaseThickness').click(() => {
+    lineWidth++;
+  });
+
+  $('#decreaseThickness').click(() => {
+    if (lineWidth > 1)
+      lineWidth--;
+  });
 
   socket.on('connect', () => {
     clientId = socket.id;
@@ -49,6 +58,7 @@
 
   socket.on('roomJoined', (info) => {
     roomId = info.roomId;
+    console.log(roomId);
   });
 
   window.addEventListener('resize', onResize, false);
@@ -56,7 +66,7 @@
   onResize();
 
 
-  function drawLine(x0, y0, x1, y1, color, emit){
+  function drawLine(x0, y0, x1, y1, color, thickness, emit){
     if(color == 'white') {
         context.clearRect(x0 - 25, y0 - 25, 50, 50);
     } else {
@@ -64,7 +74,7 @@
         context.moveTo(x0, y0);
         context.lineTo(x1, y1);
         context.strokeStyle = color;
-        context.lineWidth = 2;
+        context.lineWidth = thickness;
         context.stroke();
         context.closePath();
     }
@@ -80,6 +90,7 @@
       x1: x1 / w,
       y1: y1 / h,
       color: color,
+      thickness: lineWidth,
       roomId: roomId
     });
   }
@@ -93,12 +104,12 @@
   function onMouseUp(e){
     if (!drawing) { return; }
     drawing = false;
-    drawLine(current.x, current.y, (e.clientX||e.touches[0].clientX) - offx, (e.clientY||e.touches[0].clientY) - offy, current.color, true);
+    drawLine(current.x, current.y, (e.clientX||e.touches[0].clientX) - offx, (e.clientY||e.touches[0].clientY) - offy, current.color, lineWidth, true);
   }
 
   function onMouseMove(e){
     if (!drawing) { return; }
-    drawLine(current.x, current.y, (e.clientX||e.touches[0].clientX) - offx, (e.clientY||e.touches[0].clientY) - offy, current.color, true);
+    drawLine(current.x, current.y, (e.clientX||e.touches[0].clientX) - offx, (e.clientY||e.touches[0].clientY) - offy, current.color, lineWidth, true);
     current.x = (e.clientX||e.touches[0].clientX) - offx;
     current.y = (e.clientY||e.touches[0].clientY) - offy;
   }
@@ -135,7 +146,7 @@
     var h = canvas.height;
     var rect = canvas.getBoundingClientRect();
 
-    drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
+    drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color, data.thickness);
   }
 
   // make the canvas fill its parent
