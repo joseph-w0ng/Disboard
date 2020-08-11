@@ -1,50 +1,68 @@
 'use strict';
 
 (function() {
+    $("#assignmentQuestions").hide();
     var socket = io();
-    var getAssignmentSubmitButton = document.getElementById("getAssignmentSubmit");
-    var addQuestionSubmitButton = document.getElementById("addQuestionSubmit");
+    let userId = null;
+    let assignmentId = null;
 
     var resultDiv = document.getElementById("result");
 
-    getAssignmentSubmitButton.addEventListener("click", getAssignment, false);
-    addQuestionSubmitButton.addEventListener("click", addQuestion, false);
-
-    function getAssignment() {
-        //console.log("uwu");
-        let instructorid = $("#getAssignmentInstructorId").val();
-        let assignmentid = $("#getAssignmentId").val();
-        //console.log(userid);
+    // instructorSubmitButton.addEventListener("click", getQuestions, false);
+    $("#getAssignmentSubmit").click(() => {
+        userId = $("#userId").val();
+        assignmentId = $("#assignmentId").val();
         let info = {
-            "instructorid": instructorid,
-            "assignmentid": assignmentid,
+            "userid": userId,
+            "assignmentid": assignmentId
         }
-        socket.emit("getAssignment", info);
-    }
-
-    socket.on('getAssignmentResponse', (data) => {
-        console.log(data.assignment);
-
-        var resultHTML = "";
-        
-        resultHTML += "<table><tr><td>ID</td><td>question</td></tr>";
-        data.assignment.questions.forEach(function(question, index) {
-            //console.log(question.userid);
-            resultHTML += ("<tr><td><button>ID</button><td>" + question + "</td></tr>");
-        });
-
-        resultHTML += ("</table>");
-        resultDiv.innerHTML = resultHTML;
+        socket.emit("getQuestions", info);
     });
 
-    function addQuestion() {
+    $("#newAssignmentSubmit").click(() => {
+        userId = $("#userId").val();
+        assignmentId = $("#assignmentId").val();
+        $("#assignmentQuestions").show();
+    });
+
+    $("#addQuestions").click(() => {
+        var new_input = "<input type='text' class='questions'>";
+        $("#inputs").append(new_input);
+    });
+
+    $("#submitQuestions").click(() => {
+        let questions = [];
+        $(".questions").each(function(i, question) {
+            questions.push($(question).val());
+        });
         let info = {
-            "instructor": $("#addQuestionUserId").val(), //#TODO: Add entry box
-            "assignmentid": $("#addQuestionAssignmentId").val(), //#TODO: Add entry box
-            "question": $("#addQuestionText").val(),
+            "userid": userId, //#aTODO: Add entry box
+            "assignmentid": assignmentId, //#TODO: Add entry box
+            "questions": questions,
         }
-        socket.emit("addQuestion", info);
-    }
+        console.log(info);
+        socket.emit("addQuestions", info);
+    });
+
+    socket.on('getQuestionsResponse', (data) => {
+        $("#inputs").empty();
+
+        for (let question of data.questions['questions']) {
+            var new_input = "<input type='text' class='questions' value='" + question +"'>";
+            $("#inputs").append(new_input);
+        }
+
+
+        // var resultHTML = "<table><tr><td>_id</td><td>userid</td><td>assignmentid</td><td>question</td></tr>";
+        // data.questions.forEach(function (question, index) {
+        //     //console.log(question.userid);
+        //     resultHTML += ("<tr><td><button val='"+question._id+"'>"+question._id+"</button</td><td>"+question.userid+"</td><td>"
+        //     +question.assignmentid+"</td><td>"+question.question+"</td></tr>");
+        // });
+
+        // resultHTML += ("</table>");
+        // resultDiv.innerHTML = resultHTML;
+    });
 
     socket.on('addQuestionResponse', (data) => {
         console.log("Response received: " + data);
