@@ -177,6 +177,7 @@ io.on('connection', (socket) => {
         const cursor = collection.insertOne(query, function(err,res) {
           if (err) {
             socket.emit('addQuestionResponse', {"success":false});
+            console.log(err.message);
             throw err;
           } else {
           console.log("1 document inserted");

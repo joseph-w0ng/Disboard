@@ -3,16 +3,20 @@
 (function() {
     var socket = io();
     var instructorSubmitButton = document.getElementById("submitid");
-    var questionSubmitButton = document.getElementById("submitQuestion");
+
+    // var addQuestionUserId = document.getElementById("addQuestionUserId")
+    // var addQuestionAssignmentId = document.getElementById("addQuestionAssignmentId")
+    // var addQuestionText = document.getElementById("addQuestionText")
+    var addQuestionSubmitButton = document.getElementById("addQuestionSubmit");
 
     var resultDiv = document.getElementById("result");
 
     instructorSubmitButton.addEventListener("click", getQuestions, false);
-    questionSubmitButton.addEventListener("click", addQuestion, false);
+    addQuestionSubmitButton.addEventListener("click", addQuestion, false);
 
     function getQuestions() {
         //console.log("uwu");
-        let userid = parseInt($("#userid").val());
+        let userid = $("#userid").val();
         console.log(userid);
         let info = {
             "userid": userid
@@ -36,16 +40,16 @@
 
     function addQuestion() {
         let info = {
-            "userid": 1, //#TODO: Add entry box
-            "assignmentid": 1, //#TODO: Add entry box
-            "question":$("#question").val(),
+            "userid": $("#addQuestionUserId").val(), //#TODO: Add entry box
+            "assignmentid": $("#addQuestionAssignmentId").val(), //#TODO: Add entry box
+            "question":$("#addQuestionText").val(),
         }
         socket.emit("addQuestion", info);
     }
 
     socket.on('addQuestionResponse', (data) => {
         console.log("Response received: "+data);
-        resultDiv.innerHTML = "<p>"+data.success+"</p>"
+        resultDiv.innerHTML = "<p>Response received: "+data.success+"</p>"
     })
 
 })();
