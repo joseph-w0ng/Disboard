@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>HackThis Whiteboard</title>
+
+    <meta name="description" content="HTML5 canvas real-time drawing using socket.io">
+    <meta name="keywords" content="whiteboard, drawing, socket-io, socketio, javascript">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <div>
+        <input id="question" type="text" placeholder="Add a text question"></input>
+        <button id="submitQuestion" type=submit>Add question</button>
+    </div>
+
+    <div>
+        <input id="userid" type="text" placeholder="Enter Instructor ID (put in 1 lol)"></input>
+        <button id="submitid">Get questions</button>
+    </div>
+
+    <div id="result">
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="js/instructorCode.js"></script>
+</body>
+
+</html>

@@ -8,6 +8,10 @@ const io = require('socket.io')(http);
 const { count } = require('console');
 const { connected } = require('process');
 
+const { MongoClient } = require("mongodb");
+const uri =
+  "mongodb+srv://react:hackthiseducation@cluster0.uve7a.mongodb.net/hackthis?retryWrites=true&w=majority";
+
 const setIntervalAsync = (fn, ms) => {
   fn().then(() => {
     setTimeout(() => setIntervalAsync(fn, ms), ms);
@@ -37,6 +41,9 @@ app.use('/css', express.static(`${__dirname}/css`));
 app.use('/js', express.static(`${__dirname}/js`));
 app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/index.html`);
+});
+app.get('/instructor', (req, res) => {
+  res.sendFile(`${__dirname}/instructor.html`);
 });
 
 // Socket.io connection handler
@@ -127,6 +134,59 @@ io.on('connection', (socket) => {
   // if (!(socket.id in connectedClients)) {
   //   connectedClients[socket.id] = {};
   // }
+
+  socket.on('getQuestions', (data) => {
+    console.log("getQuestions");
+    //console.log(data.userid);
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    async function run() {
+      try {
+        await client.connect();
+
+        const database = client.db('hackthis');
+        const collection = database.collection('questions');
+
+        const query = { "userid":data.userid };
+        const cursor = collection.find(query);
+        //await cursor.forEach(console.dir);
+        var questionsArray = await cursor.toArray();
+        console.log(questionsArray);
+        socket.emit('getQuestionsResponse', {"questions":questionsArray});
+
+      } finally {
+        await client.close();
+      }
+    }
+    run().catch(console.dir);
+  })
+
+  socket.on("addQuestion", (data) => {
+    console.log("addQuestion");
+    //console.log(data.userid);
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    async function run() {
+      try {
+        await client.connect();
+
+        const database = client.db('hackthis');
+        const collection = database.collection('questions');
+
+        const query = { "userid":data.userid, "assignmentid":data.assignmentid, "question":data.question };
+        const cursor = collection.insertOne(query, function(err,res) {
+          if (err) {
+            socket.emit('addQuestionResponse', {"success":false});
+            throw err;
+          } else {
+          console.log("1 document inserted");
+          socket.emit('addQuestionResponse', {"success":true});
+          }
+        });
+      } finally {
+        await client.close();
+      }
+    }
+    run().catch(console.dir);
+  })
 
   socket.on('disconnect', () => {
     console.log(`Client disconnected (id: ${socket.id})`);
