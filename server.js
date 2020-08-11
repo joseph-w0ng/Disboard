@@ -121,11 +121,7 @@ io.on('connection', (socket) => {
 
   socket.on('resize', (data) => {
     let history = rooms[data.roomId].history;
-<<<<<<< HEAD
-    for(data in history) {
-=======
     for (data in history) {
->>>>>>> e7252cb0eb6a145c12bde6a38051f51d046ca080
       socket.emit('drawing', history[data]);
     }
   });
