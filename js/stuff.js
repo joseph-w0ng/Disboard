@@ -16,6 +16,7 @@
   var rect = canvas.getBoundingClientRect();
   var firstload = true;
   var doubletouch = false;
+  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   var offx = rect.left;
   var offy = rect.top;
@@ -46,7 +47,9 @@
     } else {
       onMouseUp(e);
       doubletouch = true;
-      let ev = new Event('touchstart', {touches: e.touches});
+      let ev = new Event('touchstart', {touches: e.touches[1]});
+      canvas.dispatchEvent(ev);
+      ev = new Event('touchstart', {touches: e.touches});
       canvas.dispatchEvent(ev);
     }
   }, false);
@@ -273,11 +276,14 @@
 
   // make the canvas fill its parent
   function onResize() {
+    if (firstload) {console.log('here'); firstload = false; return; }
+    if (isMobile) {
+      return;
+    }
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     updateOffset();
     
-    if (firstload) {console.log('here'); firstload = false; return; }
     socket.emit('resize', {});
   }
 
