@@ -37,20 +37,20 @@
   canvas.addEventListener('touchcancel', onMouseUp, false);
   canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
   canvas.addEventListener('touchstart', (e) => {
-    if(e.touches.length == 1 && !doubletouch) {
-      e.preventDefault();
-      onMouseDown(e);
-      return;
-    } else if (doubletouch) {
-      onMouseUp(e);
-      doubletouch = false;
-    } else {
+    if (e.touches.length > 1 && !doubletouch) {
       onMouseUp(e);
       doubletouch = true;
       let ev = new Event('touchstart', {touches: e.touches[0]});
       canvas.dispatchEvent(ev);
       ev = new Event('touchstart', {touches: e.touches});
       canvas.dispatchEvent(ev);
+    }
+    if (doubletouch) {
+      doubletouch = false;
+    } else {
+      e.preventDefault();
+      onMouseDown(e);
+      return;
     }
   }, false);
   // canvas.addEventListener('touchend', (e) => {
