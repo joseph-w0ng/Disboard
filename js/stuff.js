@@ -82,7 +82,8 @@
     if (!emit) { return; }
     var w = canvas.width;
     var h = canvas.height;
-
+    
+    console.log("drawing", roomId);
     socket.emit('drawing', {
       x0: x0 / w,
       y0: y0 / h,
@@ -226,14 +227,17 @@
     $('#container').show();
     let name = $('#name').val();
     let assignmentId = $('#assignmentId').val();
+
+    rect = canvas.getBoundingClientRect();
+    offx = rect.x;
+    offy = rect.y;
+    
     if ($('#roomId').is(':disabled')) {
       let info = {
         name: name,
         assignmentId: assignmentId
       };
-      rect = canvas.getBoundingClientRect();
-      offx = rect.x;
-      offy = rect.y;
+      
 
       socket.emit('create', info);
     }
