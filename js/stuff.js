@@ -50,7 +50,6 @@
     } else {
       e.preventDefault();
       onMouseDown(e);
-      return;
     }
   }, false);
   // canvas.addEventListener('touchend', (e) => {
@@ -276,7 +275,12 @@
 
   // make the canvas fill its parent
   function onResize() {
-    if (firstload) {console.log('here'); firstload = false; return; }
+    if (firstload) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      firstload = false;
+      return;
+    }
     if (isMobile) {
       return;
     }
