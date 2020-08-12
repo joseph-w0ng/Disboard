@@ -40,10 +40,10 @@
     if (e.touches.length > 1 && !doubletouch) {
       onMouseUp(e);
       doubletouch = true;
-      let ev = new Event('touchstart', {touches: e.touches[0]});
-      canvas.dispatchEvent(ev);
-      ev = new Event('touchstart', {touches: e.touches});
-      canvas.dispatchEvent(ev);
+      // let ev = new Event('touchstart', {touches: e.touches[0]});
+      // canvas.dispatchEvent(ev);
+      // ev = new Event('touchstart', {touches: e.touches});
+      // canvas.dispatchEvent(ev);
     }
     if (doubletouch) {
       doubletouch = false;
@@ -275,6 +275,7 @@
 
   // make the canvas fill its parent
   function onResize() {
+    updateOffset();
     if (firstload) {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -286,7 +287,6 @@
     }
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    updateOffset();
     
     socket.emit('resize', {});
   }
