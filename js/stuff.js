@@ -37,11 +37,12 @@
   canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
   canvas.addEventListener('touchstart', (e) => {
     if(e.touches.length == 1) {
-      document.body.setAttribute('touch-action: none;');
+      e.preventDefault();
       onMouseDown(e);
     } else {
-      document.body.setAttribute('touch-action: auto;');
       onMouseUp(e);
+      let ev = new Event('touchstart');
+      canvas.dispatchEvent(ev);
     }
   }, false);
   // canvas.addEventListener('touchend', (e) => {
