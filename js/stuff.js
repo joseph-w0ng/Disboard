@@ -15,7 +15,7 @@
   var context = canvas.getContext('2d');
   var rect = canvas.getBoundingClientRect();
   var firstload = true;
-  // var numtouches = 0;
+  var doubletouch = false;
 
   var offx = rect.left;
   var offy = rect.top;
@@ -36,11 +36,16 @@
   canvas.addEventListener('touchcancel', onMouseUp, false);
   canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
   canvas.addEventListener('touchstart', (e) => {
-    if(e.touches.length == 1) {
+    if(e.touches.length == 1 && !doubletouch) {
       e.preventDefault();
       onMouseDown(e);
+      return;
+    } else if (doubletouch) {
+      onMouseUp(e);
+      doubletouch = false;
     } else {
       onMouseUp(e);
+      doubletouch = true;
       let ev = new Event('touchstart');
       canvas.dispatchEvent(ev);
     }
