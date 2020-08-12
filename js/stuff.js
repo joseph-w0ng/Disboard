@@ -35,13 +35,13 @@
   canvas.addEventListener('touchcancel', onMouseUp, false);
   // canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
   canvas.addEventListener('touchstart', (e) => {
-    if(e.touches.length == 1) {
+    if(e.targetTouches.length == 1) {
       e.preventDefault();
       onMouseDown(e);
     }
   }, false);
   canvas.addEventListener('touchmove', (e) => {
-    if(e.touches.length == 1) {
+    if(e.targetTouches.length == 1) {
       throttle(onMouseMove, 10)
     }
   }, false);
