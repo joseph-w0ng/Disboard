@@ -40,7 +40,7 @@
     if (e.touches.length > 1 && !doubletouch) {
       onMouseUp(e);
       doubletouch = true;
-      let ev = new Event('touchstart', {'touches': e.touches[0]});
+      let ev = new Event('touchstart', {'touches': [e.touches[0]]});
       canvas.dispatchEvent(ev);
       ev = new Event('touchstart', {'touches': e.touches});
       canvas.dispatchEvent(ev);
