@@ -44,8 +44,7 @@
       canvas.dispatchEvent(ev);
       ev = new TouchEvent('touchstart', {touches: e.touches});
       canvas.dispatchEvent(ev);
-    }
-    if (doubletouch) {
+    } else if (doubletouch) {
       doubletouch = false;
     } else {
       e.preventDefault();
