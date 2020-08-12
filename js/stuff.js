@@ -44,17 +44,17 @@
       canvas.dispatchEvent(ev);
       ev = new TouchEvent('touchstart', {touches: e.touches});
       canvas.dispatchEvent(ev);
-    } else if (doubletouch) {
-      doubletouch = false;
     } else {
       e.preventDefault();
       onMouseDown(e);
     }
   }, false);
-  // canvas.addEventListener('touchend', (e) => {
-  //   numtouches -= 1;
-  //   onMouseUp(e);
-  // }, false);
+  canvas.addEventListener('touchend', (e) => {
+    if (e.touches.length < 2) {
+      doubletouch = false;
+    }
+    onMouseUp(e);
+  }, false);
 
   for (var i = 0; i < colors.length; i++) {
     colors[i].addEventListener('click', onColorUpdate, false);
