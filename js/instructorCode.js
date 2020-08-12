@@ -47,9 +47,9 @@
     $("#submitQuestions").click(() => {
         let questions = [];
         $(".questions").each(function(i, question) {
-            if ($(question).val().length > 0) {
+            //if ($(question).val().length > 0) { //NOTE: If a question is deleted, responses won't match question number
                 questions.push($(question).val());
-            }
+            //}
         });
         userId = $("#userId").val();
         assignmentId = $("#assignmentId").val();
