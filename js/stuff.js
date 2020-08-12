@@ -13,6 +13,7 @@
   var lineWidth = 2;
   var questions = null; // list of the questions based on the assignment id
   var counter = 0; // counter is the index of the question to display
+  var assignmentId = null;
 
   let offx = rect.x;
   let offy = rect.y;
@@ -88,7 +89,6 @@
     var w = canvas.width;
     var h = canvas.height;
     
-    console.log("drawing", roomId);
     socket.emit('drawing', {
       x0: x0 / w,
       y0: y0 / h,
@@ -229,7 +229,7 @@
     $('#intro-wrapper').hide();
     $('#container').show();
     let name = $('#name').val();
-    let assignmentId = $('#assignmentId').val();
+    assignmentId = $('#assignmentId').val();
 
     rect = canvas.getBoundingClientRect();
     offx = rect.x;

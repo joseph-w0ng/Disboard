@@ -188,7 +188,7 @@ io.on('connection', (socket) => {
     console.log('submitWork');
     let roomId = data.roomId;
     const client = new MongoClient(uri, { useUnifiedTopology: true});
-    console.log("here");
+    // console.log(data);
     async function run() {
       try {
         await client.connect();
@@ -234,7 +234,6 @@ io.on('connection', (socket) => {
         const query = { "userid":data.userid, "assignmentid": data.assignmentid };
         const questions = await collection.findOne(query, {projection: {questions: 1 }});
 
-        console.log(questions);
         socket.emit('getQuestionsResponse', {"questions":questions});
 
       } finally {
@@ -246,7 +245,6 @@ io.on('connection', (socket) => {
 
   socket.on("addQuestions", (data) => {
     console.log("addQuestions");
-    console.log(data);
 
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     async function run() {
