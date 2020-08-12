@@ -47,6 +47,7 @@
       onMouseUp(e);
       doubletouch = true;
       let ev = new Event('touchstart');
+      ev.initTouchEvent();
       canvas.dispatchEvent(ev);
     }
   }, false);
@@ -275,6 +276,7 @@
   function onResize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    updateOffset();
     
     if (firstload) {console.log('here'); firstload = false; return; }
     socket.emit('resize', {});
