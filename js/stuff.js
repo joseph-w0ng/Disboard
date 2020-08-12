@@ -53,6 +53,11 @@
   });
 
   socket.on('drawing', onDrawingEvent);
+  socket.on('nextQuestion', () => { 
+    counter++;
+    $('#questionText').html("Problem:" + questions[counter]); // update the question
+    onClearUpdate(null, true); // clear the board
+  });
 
   socket.on('clear', onClearUpdate);
 
@@ -210,15 +215,13 @@
   });
 
   $('#submitWork').click(() => {
-    counter++;
     let data = canvasToImage();
     let packet = {
+      roomId: roomId,
       data: data,
       assignmentId: assignmentId,
       questionNumber: counter + 1
     }
-    $('#questionText').html("Problem:" + questions[counter]); // update the question
-    onClearUpdate(null, true); // clear the board
     socket.emit('submitWork', packet);
   });
 
@@ -231,7 +234,7 @@
     rect = canvas.getBoundingClientRect();
     offx = rect.x;
     offy = rect.y;
-    
+
     if ($('#roomId').is(':disabled')) {
       let info = {
         name: name,

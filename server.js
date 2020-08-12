@@ -3,7 +3,9 @@ const express = require('express');
 
 const app = express();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+  pingTimeout: 60000,
+});
 
 const { count } = require('console');
 const { connected } = require('process');
@@ -184,7 +186,7 @@ io.on('connection', (socket) => {
 
   socket.on('submitWork', (data) => {
     console.log('submitWork');
-
+    let roomId = data.roomId;
     const client = new MongoClient(uri, { useUnifiedTopology: true});
     console.log("here");
     async function run() {
@@ -206,7 +208,8 @@ io.on('connection', (socket) => {
             throw err;
           } 
 
-          socket.emit('submitWorkResponse', {"success":true});
+          io.to(roomId).emit('submitWorkResponse', {"success":true});
+          io.to(roomId).emit('nextQuestion');
           console.log("Success!");
           
         });
