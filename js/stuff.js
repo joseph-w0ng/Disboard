@@ -31,24 +31,12 @@
 
   //Touch support for mobile devices
   // canvas.addEventListener('touchstart', onMouseDown, false);
-  // canvas.addEventListener('touchend', onMouseUp, false);
-  // canvas.addEventListener('touchcancel', onMouseUp, false);
-  // canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
+  canvas.addEventListener('touchend', onMouseUp, false);
+  canvas.addEventListener('touchcancel', onMouseUp, false);
+  canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
   canvas.addEventListener('touchstart', (e) => {
     e.preventDefault();
     onMouseDown(e);
-  }, false);
-  canvas.addEventListener('touchend', (e) => {
-    e.preventDefault();
-    onMouseUp(e);
-  }, false);
-  canvas.addEventListener('touchcancel', (e) => {
-    e.preventDefault();
-    onMouseUp(e);
-  }, false);
-  canvas.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    throttle(onMouseMove, 10);
   }, false);
 
   for (var i = 0; i < colors.length; i++) {
