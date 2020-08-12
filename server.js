@@ -231,7 +231,8 @@ io.on('connection', (socket) => {
         const database = client.db('hackthis');
         const collection = database.collection('assignments');
 
-        const query = { "userid":data.userid, "assignmentid": data.assignmentid };
+        //const query = { "userid":data.userid, "assignmentid": data.assignmentid };
+        const query = { "assignmentid": data.assignmentid }
         const questions = await collection.findOne(query, {projection: {questions: 1 }});
 
         socket.emit('getQuestionsResponse', {"questions":questions});
