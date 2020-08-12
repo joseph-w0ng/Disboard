@@ -17,11 +17,13 @@
           <button id="joinOption">Join Room</button>
       </div>
       <input type="text" id="roomId" placeholder="Room ID">
+      <input type="text" id="assignmentId" placeholder="Assignment ID">
       <input type="text" id="name" placeholder="Your Name">
       <button id="enterRoom">Submit</button>
       <div class="error">
           <p id="errorMsg"></p>
       </div>
+      <a href="/instructor">Create an Assignment!</a>
     </div>
     <div id="container">
         <div class="colors">
@@ -35,12 +37,14 @@
             <div id="increaseThickness">Increase Thickness</div>
             <div id="decreaseThickness">Decrease Thickness</div>
         </div>
-
-      <canvas id="myCanvas" class="whiteboard"></canvas>
+        <canvas id="myCanvas" class="whiteboard"></canvas>
+        <div id="questions">
+          <h3 id="questionText"></h3>
+        </div>
+        <button id="submitWork">Submit Work!</button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
-            integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I="
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/over-engineer/Socket.io-whiteboard/lib/whiteboard.js"
             integrity="sha384-lGajmend6yDyTY9CZMgcIQX0sFVzYbN+1WzaofEQ8+z8BXbH/DuYPohTY7OCQbQt"

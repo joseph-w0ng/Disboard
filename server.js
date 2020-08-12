@@ -89,7 +89,27 @@ io.on('connection', (socket) => {
     socket.join(roomId);
 
     rooms[roomId] = roomInfo;
-    io.to(clientId).emit('roomJoined', {roomId: roomId});
+
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    async function run() {
+      try {
+        await client.connect();
+
+        const database = client.db('hackthis');
+        const collection = database.collection('assignments');
+
+        const query = { "assignmentid": assignmentId };
+        const questions = await collection.findOne(query, {projection: {questions: 1 }});
+
+        console.log(questions);
+        io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions});
+
+      } finally {
+        await client.close();
+      }
+    }
+
+    run().catch(console.dir);
   });
 
   socket.on('join', (info) => {
@@ -105,7 +125,26 @@ io.on('connection', (socket) => {
     room.clients.push(clientId);
 
     socket.join(roomId);
-    io.to(clientId).emit('roomJoined', {roomId: roomId});
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    async function run() {
+      try {
+        await client.connect();
+
+        const database = client.db('hackthis');
+        const collection = database.collection('assignments');
+
+        const query = { "assignmentid": assignmentId };
+        const questions = await collection.findOne(query, {projection: {questions: 1 }});
+
+        console.log(questions);
+        io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions});
+
+      } finally {
+        await client.close();
+      }
+    }
+
+    run().catch(console.dir);
   });
 
   socket.on('drawing', (data) => {
@@ -137,6 +176,41 @@ io.on('connection', (socket) => {
   //   connectedClients[socket.id] = {};
   // }
 
+  socket.on('submitWork', (data) => {
+    console.log('submitWork');
+
+    const client = new MongoClient(uri, { useUnifiedTopology: true});
+    console.log("here");
+    async function run() {
+      try {
+        await client.connect();
+
+        const collection = client.db('hackthis').collection('submissions');
+        const query = {"assignmentId": data.assignmentId, "question": data.questionNumber};
+
+        const cursor = collection.updateOne(query, {
+          $push: {
+            'submissions': data.data
+          }
+        }, {
+          upsert:true,
+        }, function(err,res) {
+          if (err) {
+            socket.emit('submitWorkResponse', {"success":err.message});
+            throw err;
+          } 
+
+          socket.emit('submitWorkResponse', {"success":true});
+          console.log("Success!");
+          
+        });
+      } finally {
+        await client.close();
+      }
+    } 
+    run().catch(console.dir);
+  });
+
   socket.on('getQuestions', (data) => {
     console.log("getQuestions");
     //console.log(data.userid);
@@ -150,9 +224,7 @@ io.on('connection', (socket) => {
 
         const query = { "userid":data.userid, "assignmentid": data.assignmentid };
         const questions = await collection.findOne(query, {projection: {questions: 1 }});
-        //await cursor.forEach(console.dir);
-        //var questionsArray = await cursor.toArray();
-        //console.log(questionsArray[0].questions); 
+
         console.log(questions);
         socket.emit('getQuestionsResponse', {"questions":questions});
 
@@ -166,7 +238,7 @@ io.on('connection', (socket) => {
   socket.on("addQuestions", (data) => {
     console.log("addQuestions");
     console.log(data);
-    //console.log(data.userid);
+
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     async function run() {
       try {
@@ -175,7 +247,7 @@ io.on('connection', (socket) => {
         const database = client.db('hackthis');
         const collection = database.collection('assignments');
 
-        const query = { "userid":data.userid, "assignmentid":data.assignmentid};
+        const query = { "userid":data.userid, "assignmentid": data.assignmentid};
         const cursor = collection.updateOne(query, {
           $set: {
             'questions': data.questions

@@ -37,7 +37,7 @@ body {
 }
 
 .colors {
-    position: fixed;
+    position: relative;
 }
 
 .color {
@@ -99,3 +99,21 @@ body {
 .color.blue { background-color: blue; }
 .color.yellow { background-color: yellow; }
 .color.white { background-color: white;}
+
+#submitWork {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+}
+
+#questions {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    width: fit-content;
+}
+
+#myCanvas {
+    border: 1px solid black;
+}
