@@ -118,7 +118,7 @@ body {
     border: 1px solid black;
 }
 
-#errorMsg {
+.error {
     color: red;
     font-size: 10px;
 }

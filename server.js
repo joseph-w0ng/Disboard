@@ -77,6 +77,7 @@ io.on('connection', (socket) => {
     let roomId = guid();
     let assignmentId = info.assignmentId;
     let clientId = socket.id;
+    let name = info.name;
 
     console.log(roomId);
     while (roomId in rooms) {
@@ -86,10 +87,14 @@ io.on('connection', (socket) => {
     roomInfo = {
       clients: [],
       history: [],
-      assignment: assignmentId
+      assignment: assignmentId,
     };
 
-    roomInfo.clients.push(clientId);
+    roomInfo.clients.push({
+      clientId: clientId,
+      name: name
+    });
+
     socket.join(roomId);
 
     rooms[roomId] = roomInfo;
@@ -200,6 +205,8 @@ io.on('connection', (socket) => {
   socket.on('submitWork', (data) => {
     console.log('submitWork');
     let roomId = data.roomId;
+    io.to(roomId).emit('hideSubmit');
+
     const client = new MongoClient(uri, { useUnifiedTopology: true});
     // console.log(data);
     async function run() {
@@ -208,20 +215,27 @@ io.on('connection', (socket) => {
 
         const collection = client.db('hackthis').collection('submissions');
         const query = {"assignmentId": data.assignmentId, "question": data.questionNumber};
-
+        console.log(data.questionNumber);
+        let students = [];
+        for (let client of rooms[roomId].clients) {
+          students.push(client.name);
+        }
         const cursor = collection.updateOne(query, {
           $push: {
-            'submissions': data.data
+            'submissions': {
+              "data": data.data,
+              "students": students
+            }
           }
         }, {
           upsert:true,
         }, function(err,res) {
           if (err) {
-            socket.emit('submitWorkResponse', {"success":err.message});
+            io.to(roomId).emit('submitWorkFailed', {"success":err.message});
             throw err;
           } 
 
-          io.to(roomId).emit('submitWorkResponse', {"success":true});
+          // io.to(roomId).emit('submitWorkResponse', {"success":true});
           io.to(roomId).emit('nextQuestion');
           console.log("Success!");
           
@@ -272,7 +286,12 @@ io.on('connection', (socket) => {
         const query = { "assignmentId": data.assignmentid }
         const cursor = collection.find(query, {projection: {question: 1 , submissions: 1}});
         const submissions = await cursor.toArray();
-        //console.log(submissions);
+        submissions.sort(function(a, b) {
+          if (a.question < b.question) return -1;
+          if (a.question > b.question) return 1;
+          return 0;
+        })
+
         socket.emit('getSubmissionsResponse', {"submissions":submissions});
 
       } finally {

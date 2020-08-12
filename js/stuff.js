@@ -53,14 +53,30 @@
       lineWidth--;
   });
 
+  socket.on('submitWorkFailed', (data) => {
+    $("#submitError").html("Submission failed, please try again");
+    $("#submitWork").show();
+  });
+
+  socket.on('hideSubmit', () => {
+    $('#submitWork').hide();
+  });
+
   socket.on('drawing', onDrawingEvent);
   socket.on('roomError', (roomId) => {
     $('#errorMsg').html(roomId + " is not a valid room.");
   })
   socket.on('nextQuestion', () => { 
+    $("#submitWork").show();
     counter++;
-    $('#questionText').html("Problem:" + questions[counter]); // update the question
     onClearUpdate(null, true); // clear the board
+    if (counter >= questions.length) {
+      $("#container").hide();
+      $("#intro-wrapper").show();
+      counter = 0;
+      return;
+    }
+    $('#questionText').html("Problem:" + questions[counter]); // update the question
   });
 
   socket.on('clear', onClearUpdate);
@@ -72,6 +88,9 @@
     $('#questionText').html("Problem: " + questions[counter]); 
     $('#intro-wrapper').hide();
     $('#container').show();
+    rect = canvas.getBoundingClientRect();
+    offx = rect.x;
+    offy = rect.y;
   });
 
   socket.on('invalidAssignment', (assignmentId) => {
@@ -243,10 +262,6 @@
 
     $('#name').val('');
     $('#assignentId').val('');
-
-    rect = canvas.getBoundingClientRect();
-    offx = rect.x;
-    offy = rect.y;
 
     if ($('#roomId').is(':disabled')) {
       let info = {
