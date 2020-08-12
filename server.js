@@ -184,24 +184,15 @@ io.on('connection', (socket) => {
           upsert:true,
         }, function(err,res) {
           if (err) {
-            socket.emit('addQuestionResponse', {"success":false});
-            console.log(err.message);
+            socket.emit('addQuestionResponse', {"success":err.message});
             throw err;
-          } else {
-            console.log("1 document inserted");
-            socket.emit('addQuestionResponse', {"success":true});
-          }
+          } 
+          console.log("1 document inserted");
+          socket.emit('addQuestionResponse', {"success":true});
+          
         });
-        // const cursor = collection.insertOne(query, function(err,res) {
-        //   if (err) {
-        //     socket.emit('addQuestionResponse', {"success":false});
-        //     console.log(err.message);
-        //     throw err;
-        //   } else {
-        //   console.log("1 document inserted");
-        //   socket.emit('addQuestionResponse', {"success":true});
-        //   }
-        // });
+      } catch(err) {
+        socket.emit('addQuestionResponse', {"success":err.message});
       } finally {
         await client.close();
       }
