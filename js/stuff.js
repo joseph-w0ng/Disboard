@@ -33,7 +33,7 @@
   //Touch support for mobile devices
   // canvas.addEventListener('touchstart', onMouseDown, false);
   // canvas.addEventListener('touchend', onMouseUp, false);
-  // canvas.addEventListener('touchcancel', onMouseUp, false);
+  canvas.addEventListener('touchcancel', onMouseUp, false);
   canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
   canvas.addEventListener('touchstart', (e) => {
     numtouches += e.targetTouches.length;
@@ -46,15 +46,12 @@
     numtouches -= e.targetTouches.length;
     onMouseUp(e);
   }, false);
-  canvas.addEventListener('touchcancel', (e) => {
-    numtouches -= e.targetTouches.length;
-    onMouseUp(e);
-  }, false);
 
   for (var i = 0; i < colors.length; i++) {
     colors[i].addEventListener('click', onColorUpdate, false);
   }
   clear.addEventListener('click', onClear, false);
+  createroom.addEventListener('click', onRoomCreate, false);
 
   socket.on('join', onJoinEvent);
   socket.on('drawing', onDrawingEvent);
@@ -192,8 +189,6 @@
     window.crypto.getRandomValues(arr);
     return Array.from(arr, dec2hex).join('');
   }
-
-  createroom.addEventListener('click', onRoomCreate, false);
 
   async function onRoomCreate(e) {
     if (!room_namefield.value || !user_namefield.value) { 
