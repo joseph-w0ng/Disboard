@@ -54,6 +54,9 @@
   });
 
   socket.on('drawing', onDrawingEvent);
+  socket.on('roomError', (roomId) => {
+    $('#errorMsg').html(roomId + " is not a valid room.");
+  })
   socket.on('nextQuestion', () => { 
     counter++;
     $('#questionText').html("Problem:" + questions[counter]); // update the question
@@ -63,9 +66,16 @@
   socket.on('clear', onClearUpdate);
 
   socket.on('roomJoined', (info) => {
+    $('#errorMsg').html('');
     roomId = info.roomId;
     questions = info.questions["questions"];
     $('#questionText').html("Problem: " + questions[counter]); 
+    $('#intro-wrapper').hide();
+    $('#container').show();
+  });
+
+  socket.on('invalidAssignment', (assignmentId) => {
+    $('#errorMsg').html(assignmentId + " is not a valid assignment ID.");
   });
 
   window.addEventListener('resize', onResize, false);
@@ -205,6 +215,7 @@
   }
 
   $('#createOption').click( () => {
+    $('#roomId').val('');
     $('#roomId').attr('disabled', true);
     $('#assignmentId').attr('disabled', false);
   });
@@ -212,6 +223,7 @@
   $('#joinOption').click( () => {
     $('#roomId').attr('disabled', false);
     $('#assignmentId').attr('disabled', true);
+    $('#assignmentId').val('');
   });
 
   $('#submitWork').click(() => {
@@ -226,10 +238,11 @@
   });
 
   $('#enterRoom').click( () => {
-    $('#intro-wrapper').hide();
-    $('#container').show();
     let name = $('#name').val();
     assignmentId = $('#assignmentId').val();
+
+    $('#name').val('');
+    $('#assignentId').val('');
 
     rect = canvas.getBoundingClientRect();
     offx = rect.x;

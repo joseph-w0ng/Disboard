@@ -105,8 +105,12 @@ io.on('connection', (socket) => {
         const query = { "assignmentid": assignmentId };
         const questions = await collection.findOne(query, {projection: {questions: 1 }});
 
-        console.log(questions);
-        io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions});
+        if (questions != null) {
+          io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions});
+        }
+        else {
+          io.to(clientId).emit('invalidAssignment', assignmentId);
+        }
 
       } finally {
         await client.close();
@@ -118,8 +122,11 @@ io.on('connection', (socket) => {
 
   socket.on('join', (info) => {
     let roomId = info.roomId;
+    console.log('join');
 
     if (!(roomId in rooms)) {
+      console.log('correct')
+      io.to(socket.id).emit('roomError', roomId);
       return;
     }
     // let name = info.name;
@@ -141,8 +148,14 @@ io.on('connection', (socket) => {
         const query = { "assignmentid": assignmentId };
         const questions = await collection.findOne(query, {projection: {questions: 1 }});
 
-        console.log(questions);
-        io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions});
+        if (questions != null) {
+          console.log('no error')
+          io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions});
+        }
+        else {
+          console.log('error')
+          io.to(clientId).emit('invalidAssignment', assignmentId);
+        }
 
       } finally {
         await client.close();

@@ -117,3 +117,8 @@ body {
 #myCanvas {
     border: 1px solid black;
 }
+
+#errorMsg {
+    color: red;
+    font-size: 10px;
+}
