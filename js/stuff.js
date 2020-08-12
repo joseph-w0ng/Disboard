@@ -52,7 +52,7 @@
     }
   }, false);
   canvas.addEventListener('touchend', (e) => {
-    if (e.touches.length < 2) {
+    if (e.touches.length < 1) {
       doubletouch = false;
     }
     onMouseUp(e);
