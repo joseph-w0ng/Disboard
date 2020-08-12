@@ -20,6 +20,18 @@
         socket.emit("getQuestions", info);
     });
 
+    $("#getAssignmentSubmissions").click(() => {
+        $("#getAssignmentSubmit").trigger("click");
+        $("#assignmentSubmissions").hide();
+        userId = $("#userId").val();
+        assignmentId = $("#assignmentId").val();
+        let info = {
+            "userid": userId,
+            "assignmentid": assignmentId
+        }
+        socket.emit("getSubmissions", info);
+    });
+
     $("#newAssignmentSubmit").click(() => {
         userId = $("#userId").val();
         assignmentId = $("#assignmentId").val();
@@ -54,13 +66,13 @@
     socket.on('getQuestionsResponse', (data) => {
         $("#inputs").empty();
         $("#assignmentDescription").empty();
-       
+
 
         if (data.questions == null || data.questions['questions'].length <= 0) {
             var new_input = "Assignment not found. Time to make a new one!<br/>"
             $("#inputs").append(new_input);
         } else {
-            $("#assignmentDescription").append("Assignment questions for: "+userId+"'s "+ assignmentId+":");
+            $("#assignmentDescription").append("Assignment questions for: " + userId + "'s " + assignmentId + ":");
             for (let question of data.questions['questions']) {
                 var new_input = "<input type='text' class='questions' value='" + question + "'><br/>";
                 $("#inputs").append(new_input);
@@ -82,6 +94,25 @@
     socket.on('addQuestionResponse', (data) => {
         console.log("Response received: " + data.success);
         resultDiv.innerHTML = "<p>Response received: " + data.success + "</p>";
+    })
+
+    socket.on('getSubmissionsResponse', (data) => {
+        $("#assignmentSubmissions").empty();
+        console.log("assignmentSubmissionResponse");
+        if (data.submissions == null || data.submissions.length <= 0) {
+            var new_input = "<p>No submissions found. Have you created and sent out the assignment yet?</p>"
+            $("#assignmentSubmissions").append(new_input);
+        } else {
+            $("#assignmentSubmissions").append("<h2>Assignment responses for: " + userId + "'s " + assignmentId + ":</h2>");
+            for (let question of data.submissions) {
+                $("#assignmentSubmissions").append("<h3>Question " + question.question + ":</h3><br/>");
+                for (let submission of question.submissions) {
+                    var new_input = "<image style='border:1px solid;width:200px' src='"+submission+"'><br/>";
+                    $("#assignmentSubmissions").append(new_input);
+                }
+            }
+        }
+        $("#assignmentSubmissions").show(); 
     })
 
 })();

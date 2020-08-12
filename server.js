@@ -244,6 +244,31 @@ io.on('connection', (socket) => {
     run().catch(console.dir);
   })
 
+  socket.on('getSubmissions', (data) => {
+    console.log("getSubmissions");
+    //console.log(data.userid);
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    async function run() {
+      try {
+        await client.connect();
+
+        const database = client.db('hackthis');
+        const collection = database.collection('submissions');
+
+        //const query = { "userid":data.userid, "assignmentid": data.assignmentid };
+        const query = { "assignmentId": data.assignmentid }
+        const cursor = collection.find(query, {projection: {question: 1 , submissions: 1}});
+        const submissions = await cursor.toArray();
+        //console.log(submissions);
+        socket.emit('getSubmissionsResponse', {"submissions":submissions});
+
+      } finally {
+        await client.close();
+      }
+    }
+    run().catch(console.dir);
+  })
+
   socket.on("addQuestions", (data) => {
     console.log("addQuestions");
 

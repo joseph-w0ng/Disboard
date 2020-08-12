@@ -8,7 +8,7 @@
     <meta name="description" content="HTML5 canvas real-time drawing using socket.io">
     <meta name="keywords" content="whiteboard, drawing, socket-io, socketio, javascript">
 
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/style.css">-->
 </head>
 
 <body>
@@ -18,6 +18,7 @@
         <input id="assignmentId" type="text" placeholder="Enter Assignment ID"></input>
         <!--<button id="newAssignmentSubmit" type=submit>Create a New Assignment</button>-->
         <button id="getAssignmentSubmit" type=submit>Create/Get Assignment Questions</button>
+        <button id="getAssignmentSubmissions">Get Assignment Responses</button>
     </div>
 
     <!--<div>
@@ -46,6 +47,11 @@
     </div>
     <div id="result">
 
+    </div>
+    <div style="overflow:auto">
+        <div id="assignmentSubmissions">
+
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
