@@ -39,6 +39,8 @@
     if(e.touches.length == 1) {
       e.preventDefault();
       onMouseDown(e);
+    } else {
+      onMouseUp(e);
     }
   }, false);
   // canvas.addEventListener('touchend', (e) => {
@@ -216,6 +218,7 @@
     // let url = 'http://localhost:3000/checkname';
     let url = 'https://hackthis-whiteboard.herokuapp.com/checkname';
     let res = await fetch(url, {
+      credentials: 'include',
       method : 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({name:name})
