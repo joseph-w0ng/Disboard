@@ -15,6 +15,7 @@
   var context = canvas.getContext('2d');
   var rect = canvas.getBoundingClientRect();
   var firstload = true;
+  var numtouches = 0;
 
   var offx = rect.left;
   var offy = rect.top;
@@ -31,19 +32,23 @@
 
   //Touch support for mobile devices
   // canvas.addEventListener('touchstart', onMouseDown, false);
-  canvas.addEventListener('touchend', onMouseUp, false);
-  canvas.addEventListener('touchcancel', onMouseUp, false);
-  // canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
+  // canvas.addEventListener('touchend', onMouseUp, false);
+  // canvas.addEventListener('touchcancel', onMouseUp, false);
+  canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
   canvas.addEventListener('touchstart', (e) => {
-    if(e.targetTouches.length == 1) {
+    numtouches += e.targetTouches.length;
+    if(e.targetTouches.length == 1 && numtouches == 1) {
       e.preventDefault();
       onMouseDown(e);
     }
   }, false);
-  canvas.addEventListener('touchmove', (e) => {
-    if(e.targetTouches.length == 1) {
-      throttle(onMouseMove, 10)
-    }
+  canvas.addEventListener('touchend', (e) => {
+    numtouches -= e.targetTouches.length;
+    onMouseUp(e);
+  }, false);
+  canvas.addEventListener('touchcancel', (e) => {
+    numtouches -= e.targetTouches.length;
+    onMouseUp(e);
   }, false);
 
   for (var i = 0; i < colors.length; i++) {
@@ -211,9 +216,6 @@
     });
     sessionStorage.roomID = id;
     sessionStorage.username = user_namefield.value;
-    errortxt.innerHTML = 'Making room...';
-    updateOffset();
-    setTimeout(() => {errortxt.innerHTML = ''; updateOffset();}, 1000);
   }
 
   async function checkname(name) {
