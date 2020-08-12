@@ -37,8 +37,8 @@
   canvas.addEventListener('touchstart', (e) => {
     if(e.targetTouches.length == 1) {
       e.preventDefault();
+      onMouseDown(e);
     }
-    onMouseDown(e);
   }, false);
 
   for (var i = 0; i < colors.length; i++) {
