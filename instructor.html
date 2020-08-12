@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>HackThis Whiteboard</title>
+
+    <meta name="description" content="HTML5 canvas real-time drawing using socket.io">
+    <meta name="keywords" content="whiteboard, drawing, socket-io, socketio, javascript">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+        body {
+            overflow: auto !important
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>Assignments Menu</h1>
+        <input id="userId" disabled hidden type="text" placeholder="Enter Instructor ID"></input>
+        <input id="assignmentId" type="text" placeholder="Enter Assignment ID"></input>
+        <!--<button id="newAssignmentSubmit" type=submit>Create a New Assignment</button>-->
+        <!-- <button id="getAssignmentSubmit" type=submit>Create/Get Assignment Questions</button> -->
+        <button id="getAssignmentSubmissions">Get Assignment Responses</button>
+    </div>
+
+    <!--<div>
+        <h1>Get Assignment</h1>
+        <input id="getAssignmentInstructorId" type="text" placeholder="Enter Instructor ID"></input>
+        <input id="getAssignmentId" type="text" placeholder="Enter Assignment ID"></input>
+        <button id="getAssignmentSubmit">Get assignment</button>
+    </div>-->
+    <!-- <div>
+        <h1>Get Questions by Instructor ID</h1>
+        <input id="userid" type="text" placeholder="Enter Instructor ID (put in 1 lol)"></input>
+        <button id="submitid">Get questions</button>
+    </div> -->
+
+    <div id="assignmentQuestions">
+        <h1>Assignment Details</h1>
+        <div id="assignmentDescription">
+
+        </div>
+        <div id="inputs">
+            <input class="questions" type="text" placeholder="Enter your question here">
+        </div>
+        <button id="addQuestions">Add More Questions</button>
+        <button id="submitQuestions">Submit Questions</button>
+
+    </div>
+    <div id="result">
+
+    </div>
+    <div style="overflow:auto">
+        <div id="assignmentSubmissions">
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="js/instructorCode.js"></script>
+</body>
+
+</html>
