@@ -195,3 +195,24 @@
   });
 
 })();
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function palletView() {
+  console.log("Image Clicked");
+  document.getElementById("pallet").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('#pallet-icon') && !event.target.matches('.color')) {
+    var dropdowns = document.getElementsByClassName("overflow-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}

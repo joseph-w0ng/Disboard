@@ -158,3 +158,12 @@ body {
     margin-left: -35px;
     margin-top: -35px;
 }
+
+.overflow-content {
+    display: none;
+
+  }
+
+  .show {
+      display: block;
+    }
