@@ -46,7 +46,7 @@
     } else {
       onMouseUp(e);
       doubletouch = true;
-      let ev = new Event('touchstart', e);
+      let ev = new Event('touchstart', {touches: e.touches});
       canvas.dispatchEvent(ev);
     }
   }, false);
@@ -72,8 +72,8 @@
 
   function updateOffset() {
     rect = canvas.getBoundingClientRect();
-    offx = rect.left - window.pageXOffset;
-    offy = rect.top - window.pageYOffset;
+    offx = rect.left - parent.window.pageXOffset;
+    offy = rect.top - parent.window.pageYOffset;
   }
 
   function drawLine(x0, y0, x1, y1, color, emit) {
