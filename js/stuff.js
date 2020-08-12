@@ -33,11 +33,16 @@
   // canvas.addEventListener('touchstart', onMouseDown, false);
   canvas.addEventListener('touchend', onMouseUp, false);
   canvas.addEventListener('touchcancel', onMouseUp, false);
-  canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
+  // canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
   canvas.addEventListener('touchstart', (e) => {
-    if(e.targetTouches.length == 1) {
+    if(e.touches.length == 1) {
       e.preventDefault();
       onMouseDown(e);
+    }
+  }, false);
+  canvas.addEventListener('touchmove', (e) => {
+    if(e.touches.length == 1) {
+      throttle(onMouseMove, 10)
     }
   }, false);
 
@@ -206,6 +211,9 @@
     });
     sessionStorage.roomID = id;
     sessionStorage.username = user_namefield.value;
+    errortxt.innerHTML = 'Making room...';
+    updateOffset();
+    setTimeout(() => {errortxt.innerHTML = ''; updateOffset();}, 1000);
   }
 
   async function checkname(name) {
