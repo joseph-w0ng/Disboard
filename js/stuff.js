@@ -15,7 +15,7 @@
   var context = canvas.getContext('2d');
   var rect = canvas.getBoundingClientRect();
   var firstload = true;
-  var numtouches = 0;
+  // var numtouches = 0;
 
   var offx = rect.left;
   var offy = rect.top;
@@ -32,20 +32,19 @@
 
   //Touch support for mobile devices
   // canvas.addEventListener('touchstart', onMouseDown, false);
-  // canvas.addEventListener('touchend', onMouseUp, false);
+  canvas.addEventListener('touchend', onMouseUp, false);
   canvas.addEventListener('touchcancel', onMouseUp, false);
   canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
   canvas.addEventListener('touchstart', (e) => {
-    numtouches += e.targetTouches.length;
-    if(e.targetTouches.length == 1 && numtouches == 1) {
+    if(e.touches.length == 1) {
       e.preventDefault();
       onMouseDown(e);
     }
   }, false);
-  canvas.addEventListener('touchend', (e) => {
-    numtouches -= e.targetTouches.length;
-    onMouseUp(e);
-  }, false);
+  // canvas.addEventListener('touchend', (e) => {
+  //   numtouches -= 1;
+  //   onMouseUp(e);
+  // }, false);
 
   for (var i = 0; i < colors.length; i++) {
     colors[i].addEventListener('click', onColorUpdate, false);
