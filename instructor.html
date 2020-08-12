@@ -8,16 +8,21 @@
     <meta name="description" content="HTML5 canvas real-time drawing using socket.io">
     <meta name="keywords" content="whiteboard, drawing, socket-io, socketio, javascript">
 
-    <!--<link rel="stylesheet" type="text/css" href="css/style.css">-->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+        body {
+            overflow: auto !important
+        }
+    </style>
 </head>
 
 <body>
     <div>
         <h1>Assignments Menu</h1>
-        <input id="userId" disabled type="text" placeholder="Enter Instructor ID"></input>
+        <input id="userId" disabled hidden type="text" placeholder="Enter Instructor ID"></input>
         <input id="assignmentId" type="text" placeholder="Enter Assignment ID"></input>
         <!--<button id="newAssignmentSubmit" type=submit>Create a New Assignment</button>-->
-        <button id="getAssignmentSubmit" type=submit>Create/Get Assignment Questions</button>
+        <!-- <button id="getAssignmentSubmit" type=submit>Create/Get Assignment Questions</button> -->
         <button id="getAssignmentSubmissions">Get Assignment Responses</button>
     </div>
 

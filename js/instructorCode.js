@@ -9,19 +9,20 @@
     var resultDiv = document.getElementById("result");
 
     // instructorSubmitButton.addEventListener("click", getQuestions, false);
-    $("#getAssignmentSubmit").click(() => {
-        $("#assignmentQuestions").hide();
-        userId = $("#userId").val();
-        assignmentId = $("#assignmentId").val();
-        let info = {
-            "userid": userId,
-            "assignmentid": assignmentId
-        }
-        socket.emit("getQuestions", info);
-    });
+    // $("#getAssignmentSubmit").click(() => {
+    //     $("#assignmentQuestions").hide();
+    //     userId = $("#userId").val();
+    //     assignmentId = $("#assignmentId").val();
+    //     let info = {
+    //         "userid": userId,
+    //         "assignmentid": assignmentId
+    //     }
+    //     socket.emit("getQuestions", info);
+    // });
 
     $("#getAssignmentSubmissions").click(() => {
-        $("#getAssignmentSubmit").trigger("click");
+        //$("#getAssignmentSubmit").trigger("click");
+        $("#assignmentQuestions").hide();
         $("#assignmentSubmissions").hide();
         userId = $("#userId").val();
         assignmentId = $("#assignmentId").val();
@@ -30,6 +31,7 @@
             "assignmentid": assignmentId
         }
         socket.emit("getSubmissions", info);
+        socket.emit("getQuestions", info)
     });
 
     $("#newAssignmentSubmit").click(() => {
@@ -107,7 +109,7 @@
             for (let question of data.submissions) {
                 $("#assignmentSubmissions").append("<h3>Question " + question.question + ":</h3><br/>");
                 for (let submission of question.submissions) {
-                    var new_input = "<image style='border:1px solid;width:200px' src='"+submission+"'><br/>";
+                    var new_input = "<image style='border:1px solid;width:200px' src='"+submission+"'>";
                     $("#assignmentSubmissions").append(new_input);
                 }
             }
