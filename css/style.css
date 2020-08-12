@@ -1,34 +1,13 @@
-/* body {
-    background-color: #e9e9e9;
-
-    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-    color: #828282;
-}
-
-h1 {
-    font-weight: 500;
-    margin: 0 0 0.4em 0;
-}
-
-#container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    padding: 10px;
-}
-
-#myCanvas {
-    background-color: #fff;
-
-    width: 800px;
-    height: 600px;
-} */
 body {
     max-height: 100%;
     height: 100%;
     overflow: hidden;
     touch-action: none;
+    font-family: sans-serif;
+}
+
+button, input {
+    padding-right: 5px;
 }
 
 #container {
