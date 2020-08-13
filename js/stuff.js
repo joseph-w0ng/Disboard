@@ -260,17 +260,9 @@
   // make the canvas fill its parent
   function onResize() {
     updateOffset();
-    if (firstload) {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      firstload = false;
-      return;
-    }
-    if (isMobile) {
-      return;
-    }
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    if(firstload) {firstload = false; return;}
     
     socket.emit('resize', {});
   }
