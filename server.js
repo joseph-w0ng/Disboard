@@ -172,6 +172,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('drawing', (data) => {
+    console.log(data);
     if (!(data.roomId in rooms)) {
       return;
     }
@@ -193,6 +194,9 @@ io.on('connection', (socket) => {
   });
 
   socket.on('resize', (data) => {
+    if (!(data.roomId in rooms)) {
+      return;
+    }
     let history = rooms[data.roomId].history;
     for (data in history) {
       io.to(socket.id).emit('drawing', history[data]);
