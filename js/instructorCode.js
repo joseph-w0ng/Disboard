@@ -24,8 +24,16 @@
         //$("#getAssignmentSubmit").trigger("click");
         $("#assignmentQuestions").hide();
         $("#assignmentSubmissions").hide();
+        $("#result").empty();
         userId = $("#userId").val();
-        assignmentId = $("#assignmentId").val();
+        assignmentId = $("#assignmentId").val().trim();
+
+        //if (userId.length <= 0 || assignmentId.length <= 0) {
+        if (assignmentId === "") {
+            $("#result").append("<p>Please enter an Assignment ID above.</p>");
+            return;
+        }
+
         let info = {
             "userid": userId,
             "assignmentid": assignmentId
@@ -53,14 +61,14 @@
                 questions.push($(question).val());
             //}
         });
-        userId = $("#userId").val();
-        assignmentId = $("#assignmentId").val();
+        //userId = $("#userId").val();
+        //assignmentId = $("#assignmentId").val();
         let info = {
             "userid": userId, //#aTODO: Add entry box
             "assignmentid": assignmentId, //#TODO: Add entry box
             "questions": questions,
         }
-        resultDiv.innerHTML = "<p>Response received: </p>";
+        resultDiv.innerHTML = "<p>Submitting questions...</p>";
         console.log(info);
         socket.emit("addQuestions", info);
     });
@@ -74,13 +82,15 @@
             var new_input = "Assignment not found. Time to make a new one!<br/>"
             $("#inputs").append(new_input);
         } else {
-            $("#assignmentDescription").append("Assignment questions for: " + userId + "'s " + assignmentId + ":");
+            $("#assignmentDescription").append("Assignment questions for "+ assignmentId + ":");
             for (let question of data.questions['questions']) {
                 var new_input = "<input type='text' class='questions' value='" + question + "'><br/>";
                 $("#inputs").append(new_input);
             }
         }
-        $("#assignmentQuestions").show();
+        //$("#assignmentQuestions").show(); //Since we combined 
+        //                                  //functions, show when
+        //                                  //submissions show up instead.
 
         // var resultHTML = "<table><tr><td>_id</td><td>userid</td><td>assignmentid</td><td>question</td></tr>";
         // data.questions.forEach(function (question, index) {
@@ -95,17 +105,21 @@
 
     socket.on('addQuestionResponse', (data) => {
         console.log("Response received: " + data.success);
-        resultDiv.innerHTML = "<p>Response received: " + data.success + "</p>";
+        if (data.success === true) {
+            resultDiv.innerHTML = "<p>Questions updated!</p>";
+        } else {
+            resultDiv.innerHTML = "<p>An error occured: "+data.success+"</p>";
+        }
     })
 
     socket.on('getSubmissionsResponse', (data) => {
         $("#assignmentSubmissions").empty();
         console.log("assignmentSubmissionResponse");
         if (data.submissions == null || data.submissions.length <= 0) {
-            var new_input = "<p>No submissions found. Have you created and sent out the assignment yet?</p>"
+            var new_input = "<p>No submissions yet...</p>"
             $("#assignmentSubmissions").append(new_input);
         } else {
-            $("#assignmentSubmissions").append("<h2>Assignment responses for: " + userId + "'s " + assignmentId + ":</h2>");
+            $("#assignmentSubmissions").append("<h2>Assignment responses for "+ assignmentId + ":</h2>");
             for (let question of data.submissions) {
                 $("#assignmentSubmissions").append("<h3>Question " + question.question + ":</h3><br/>");
                 for (let submission of question.submissions) {
@@ -114,6 +128,7 @@
                 }
             }
         }
+        $("#assignmentQuestions").show();
         $("#assignmentSubmissions").show(); 
     })
 
