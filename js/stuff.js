@@ -84,6 +84,7 @@
   socket.on('roomJoined', (info) => {
     $('#errorMsg').html('');
     roomId = info.roomId;
+    assignmentId = info.assignmentId;
     questions = info.questions["questions"];
     $("#room").html("Room ID: " + roomId);
     $('#questionText').html("Problem: " + questions[counter]); 

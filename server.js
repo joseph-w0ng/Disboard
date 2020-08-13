@@ -139,7 +139,10 @@ io.on('connection', (socket) => {
     let room = rooms[roomId];
     let assignmentId = room.assignment;
     connectedClients[clientId] = roomId;
-    room.clients.push(clientId);
+    room.clients.push({
+      clientId: clientId, 
+      name: info.name
+    });
 
     socket.join(roomId);
     const client = new MongoClient(uri, { useUnifiedTopology: true });
@@ -154,11 +157,9 @@ io.on('connection', (socket) => {
         const questions = await collection.findOne(query, {projection: {questions: 1 }});
 
         if (questions != null) {
-          console.log('no error')
-          io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions});
+          io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions, assignmentId: assignmentId});
         }
         else {
-          console.log('error')
           io.to(clientId).emit('invalidAssignment', assignmentId);
         }
 
@@ -215,11 +216,12 @@ io.on('connection', (socket) => {
 
         const collection = client.db('hackthis').collection('submissions');
         const query = {"assignmentId": data.assignmentId, "question": data.questionNumber};
-        console.log(data.questionNumber);
+   
         let students = [];
         for (let client of rooms[roomId].clients) {
           students.push(client.name);
         }
+      
         const cursor = collection.updateOne(query, {
           $push: {
             'submissions': {
