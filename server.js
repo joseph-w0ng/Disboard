@@ -3,10 +3,16 @@ const express = require('express');
 
 const app = express();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+  pingTimeout: 60000,
+});
 
 const { count } = require('console');
 const { connected } = require('process');
+
+const { MongoClient } = require("mongodb");
+const uri =
+  "mongodb+srv://react:hackthiseducation@cluster0.uve7a.mongodb.net/hackthis?retryWrites=true&w=majority";
 
 const setIntervalAsync = (fn, ms) => {
   fn().then(() => {
@@ -38,6 +44,9 @@ app.use('/js', express.static(`${__dirname}/js`));
 app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/index.html`);
 });
+app.get('/instructor', (req, res) => {
+  res.sendFile(`${__dirname}/instructor.html`);
+});
 
 // Socket.io connection handler
 io.on('connection', (socket) => {
@@ -68,6 +77,9 @@ io.on('connection', (socket) => {
     let roomId = guid();
     let assignmentId = info.assignmentId;
     let clientId = socket.id;
+    let name = info.name;
+
+    console.log(roomId);
     while (roomId in rooms) {
       roomId = guid();
     }
@@ -75,33 +87,95 @@ io.on('connection', (socket) => {
     roomInfo = {
       clients: [],
       history: [],
-      assignment: assignmentId
+      assignment: assignmentId,
     };
 
-    roomInfo.clients.push(clientId);
+    roomInfo.clients.push({
+      clientId: clientId,
+      name: name
+    });
+
     socket.join(roomId);
 
     rooms[roomId] = roomInfo;
-    io.to(clientId).emit('roomJoined', {roomId: roomId});
+
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    async function run() {
+      try {
+        await client.connect();
+
+        const database = client.db('hackthis');
+        const collection = database.collection('assignments');
+
+        const query = { "assignmentid": assignmentId };
+        const questions = await collection.findOne(query, {projection: {questions: 1 }});
+
+        if (questions != null) {
+          io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions, assignmentId: assignmentId});
+        }
+        else {
+          io.to(clientId).emit('invalidAssignment', assignmentId);
+        }
+
+      } finally {
+        await client.close();
+      }
+    }
+
+    run().catch(console.dir);
   });
 
   socket.on('join', (info) => {
     let roomId = info.roomId;
-  
+    console.log('join');
+
     if (!(roomId in rooms)) {
+      console.log('correct')
+      io.to(socket.id).emit('roomError', roomId);
       return;
     }
     // let name = info.name;
     let clientId = socket.id;
     let room = rooms[roomId];
+    let assignmentId = room.assignment;
     connectedClients[clientId] = roomId;
-    room.clients.push(clientId);
+    room.clients.push({
+      clientId: clientId, 
+      name: info.name
+    });
 
     socket.join(roomId);
-    io.to(clientId).emit('roomJoined', {roomId: roomId});
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    async function run() {
+      try {
+        await client.connect();
+
+        const database = client.db('hackthis');
+        const collection = database.collection('assignments');
+
+        const query = { "assignmentid": assignmentId };
+        const questions = await collection.findOne(query, {projection: {questions: 1 }});
+
+        if (questions != null) {
+          io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions, assignmentId: assignmentId});
+        }
+        else {
+          io.to(clientId).emit('invalidAssignment', assignmentId);
+        }
+
+      } finally {
+        await client.close();
+      }
+    }
+
+    run().catch(console.dir);
   });
 
   socket.on('drawing', (data) => {
+
+    if (!(data.roomId in rooms)) {
+      return;
+    }
     let room = rooms[data.roomId];
     let history = room.history;
 
@@ -120,15 +194,154 @@ io.on('connection', (socket) => {
   });
 
   socket.on('resize', (data) => {
+    if (!(data.roomId in rooms)) {
+      return;
+    }
     let history = rooms[data.roomId].history;
     for (data in history) {
-      socket.emit('drawing', history[data]);
+      io.to(socket.id).emit('drawing', history[data]);
     }
   });
 
   // if (!(socket.id in connectedClients)) {
   //   connectedClients[socket.id] = {};
   // }
+
+  socket.on('submitWork', (data) => {
+    console.log('submitWork');
+    let roomId = data.roomId;
+    io.to(roomId).emit('hideSubmit');
+
+    const client = new MongoClient(uri, { useUnifiedTopology: true});
+    // console.log(data);
+    async function run() {
+      try {
+        await client.connect();
+
+        const collection = client.db('hackthis').collection('submissions');
+        const query = {"assignmentId": data.assignmentId, "question": data.questionNumber};
+   
+        let students = [];
+        for (let client of rooms[roomId].clients) {
+          students.push(client.name);
+        }
+      
+        const cursor = collection.updateOne(query, {
+          $push: {
+            'submissions': {
+              "data": data.data,
+              "students": students
+            }
+          }
+        }, {
+          upsert:true,
+        }, function(err,res) {
+          if (err) {
+            io.to(roomId).emit('submitWorkFailed', {"success":err.message});
+            throw err;
+          } 
+
+          // io.to(roomId).emit('submitWorkResponse', {"success":true});
+          io.to(roomId).emit('nextQuestion');
+          console.log("Success!");
+          
+        });
+      } finally {
+        await client.close();
+      }
+    } 
+    run().catch(console.dir);
+  });
+
+  socket.on('getQuestions', (data) => {
+    console.log("getQuestions");
+    //console.log(data.userid);
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    async function run() {
+      try {
+        await client.connect();
+
+        const database = client.db('hackthis');
+        const collection = database.collection('assignments');
+
+        //const query = { "userid":data.userid, "assignmentid": data.assignmentid };
+        const query = { "assignmentid": data.assignmentid }
+        const questions = await collection.findOne(query, {projection: {questions: 1 }});
+
+        socket.emit('getQuestionsResponse', {"questions":questions});
+
+      } finally {
+        await client.close();
+      }
+    }
+    run().catch(console.dir);
+  })
+
+  socket.on('getSubmissions', (data) => {
+    console.log("getSubmissions");
+    //console.log(data.userid);
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    async function run() {
+      try {
+        await client.connect();
+
+        const database = client.db('hackthis');
+        const collection = database.collection('submissions');
+
+        //const query = { "userid":data.userid, "assignmentid": data.assignmentid };
+        const query = { "assignmentId": data.assignmentid }
+        const cursor = collection.find(query, {projection: {question: 1 , submissions: 1}});
+        const submissions = await cursor.toArray();
+        submissions.sort(function(a, b) {
+          if (a.question < b.question) return -1;
+          if (a.question > b.question) return 1;
+          return 0;
+        })
+
+        socket.emit('getSubmissionsResponse', {"submissions":submissions});
+
+      } finally {
+        await client.close();
+      }
+    }
+    run().catch(console.dir);
+  })
+
+  socket.on("addQuestions", (data) => {
+    console.log("addQuestions");
+
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    async function run() {
+      try {
+        await client.connect();
+
+        const database = client.db('hackthis');
+        const collection = database.collection('assignments');
+
+        const query = { "userid":data.userid, "assignmentid": data.assignmentid};
+        const cursor = collection.updateOne(query, {
+          $set: {
+            'questions': data.questions
+          }
+        }, {
+          upsert:true,
+        }, function(err,res) {
+          if (err) {
+            socket.emit('addQuestionResponse', {"success":err.message});
+            throw err;
+          } 
+          console.log("1 document inserted");
+          socket.emit('addQuestionResponse', {"success":true});
+          
+        });
+      } catch(err) {
+        socket.emit('addQuestionResponse', {"success":err.message});
+      } finally {
+        await client.close();
+      }
+    }
+    run().catch(console.dir);
+  })
 
   socket.on('disconnect', () => {
     console.log(`Client disconnected (id: ${socket.id})`);

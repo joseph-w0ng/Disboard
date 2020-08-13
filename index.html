@@ -7,6 +7,8 @@
     <meta name="description" content="HTML5 canvas real-time drawing using socket.io">
     <meta name="keywords" content="whiteboard, drawing, socket-io, socketio, javascript">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   
@@ -25,27 +27,55 @@
       </div>
       <a href="/instructor">Create an Assignment!</a>
     </div>
+
     <div id="container">
-        <div class="colors">
-            <img id = "pallet-icon" onclick="palletView()"
-            src="https://img.icons8.com/color/100/000000/paint-palette.png" />
-            <div class="color black"></div>
-            <div class="color red"></div>
-            <div class="color green"></div>
-            <div class="color blue"></div>
-            <div class="color yellow"></div>
-            <div class="color white">Eraser</div>
-            <div id="clear">Erase All</div>
-            <div id="increaseThickness">Increase Thickness</div>
-            <div id="decreaseThickness">Decrease Thickness</div>
-        </div>
+        
+      <div class="colors" id="exclude">
+          <img id="pallet-icon" onclick="palletView()" src="https://img.icons8.com/color/100/000000/paint-palette.png" />
+          <div id = "overlay">
+          <div id="pallet" class="overflow-content">
+              <div class="color black"></div>
+              <div class="color red"></div>
+              <div class="color green"></div>
+              <br>
+              <div class="color blue"></div>
+              <div class="color yellow"></div>
+          </div>
+          </div>
+          <div class="color white">
+            <svg width="35" height="35" viewBox="0 0 31 29" xmlns="http://www.w3.org/2000/svg">
+              <path d="M30.1488 15.6614C31.2837 14.448 31.2837 12.4806 30.1488 11.2672L20.4613 
+                  0.910077C19.3263 -0.303327 17.4863 -0.303391 16.3512 0.910077L0.851212 
+                  17.4815C-0.283737 18.6949 -0.283737 20.6622 0.851212 21.8756L6.6637 
+                  28.0899C7.20876 28.6726 7.94798 29 8.71878 29H30.2734C30.6747 29 31 28.6522 31 
+                  28.2232V25.6339C31 25.205 30.6747 24.8571 30.2734 24.8571H21.5476L30.1488 
+                  15.6614ZM11.8257 11.6074L20.1432 20.4998L16.0675 24.8571H9.12009L4.27634 19.6786L11.8257 11.6074Z"/>
+            </svg>
+          </div>
+          <div id="clear">
+            <svg width="35" height="35" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5 3H9.50003L8.50003 4H5.00003V6H19V4H15.5L14.5 
+              3ZM16 9V19H8.00003V9H16ZM6 7.00001H18V19C18 20.1 17.1 21 16 21H8C6.9 21 6 20.1 6 19V7.00001Z" 
+              fill="black" />
+            </svg>  
+          </div>
+          <div id="increaseThickness">Increase Thickness</div>
+          <div id="decreaseThickness">Decrease Thickness</div>
+          <div id="room"></div>
+      </div>
 
       <canvas id="myCanvas" class="whiteboard"></canvas>
-    </div>
+      <canvas id="myCanvas" class="whiteboard"></canvas>
+      <div id="questions">
+        <h3 id="questionText"></h3>
+      </div>
+      <button id="submitWork">Submit Work!</button>
+      <div class="error">
+        <p id="submitError"></p>
+      </div>
+      
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/over-engineer/Socket.io-whiteboard/lib/whiteboard.js"
