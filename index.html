@@ -25,10 +25,12 @@
             <p id="errorMsg"></p>
         </div>
     </div>
+    
     <div id="container">
-        <div class="colors">
-            <img id = "pallet-icon" onclick="palletView()"
-            src="https://img.icons8.com/color/100/000000/paint-palette.png" />
+        
+        <div class="colors" id="exclude">
+            <img id="pallet-icon" onclick="palletView()" src="https://img.icons8.com/color/100/000000/paint-palette.png" />
+            <div id = "overlay">
             <div id="pallet" class="overflow-content">
                 <div class="color black"></div>
                 <div class="color red"></div>
@@ -36,6 +38,7 @@
                 <br>
                 <div class="color blue"></div>
                 <div class="color yellow"></div>
+            </div>
             </div>
             <div class="color white">Eraser</div>
             <div id="clear">Erase All</div>
