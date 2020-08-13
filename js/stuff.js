@@ -53,11 +53,6 @@
       lineWidth--;
   });
 
-<<<<<<< HEAD
-  $('#save').click(() => {
-    let dataURL = canvasToImage('image/png');
-    $('#save').attr("href", dataURL);
-=======
   socket.on('submitWorkFailed', (data) => {
     $("#submitError").html("Submission failed, please try again");
     $("#submitWork").show();
@@ -65,7 +60,6 @@
 
   socket.on('hideSubmit', () => {
     $('#submitWork').hide();
->>>>>>> 3e10a3442ea7d8b0cfcc535870a1d3e14dd5ae19
   });
 
   socket.on('drawing', onDrawingEvent);
@@ -91,6 +85,7 @@
     $('#errorMsg').html('');
     roomId = info.roomId;
     questions = info.questions["questions"];
+    $("#room").html("Room ID: " + roomId);
     $('#questionText').html("Problem: " + questions[counter]); 
     $('#intro-wrapper').hide();
     $('#container').show();

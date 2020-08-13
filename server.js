@@ -194,7 +194,7 @@ io.on('connection', (socket) => {
   socket.on('resize', (data) => {
     let history = rooms[data.roomId].history;
     for (data in history) {
-      socket.emit('drawing', history[data]);
+      io.to(socket.id).emit('drawing', history[data]);
     }
   });
 

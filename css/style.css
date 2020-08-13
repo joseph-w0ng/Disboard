@@ -93,6 +93,18 @@ body {
     text-align: center;
 }
 
+#room {
+    vertical-align: top;
+    height: 47px;
+    width: 140px;
+    line-height: 48px;
+    border: 1px solid;
+    border-color: black;
+    font-family: sans-serif;
+    text-align: center;
+    display: inline-block;
+}
+
 .color.black { background-color: black; }
 .color.red { background-color: red; }
 .color.green { background-color: green; }
