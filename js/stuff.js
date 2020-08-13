@@ -15,7 +15,6 @@
   var context = canvas.getContext('2d');
   var rect = canvas.getBoundingClientRect();
   var firstload = true;
-  var doubletouch = false;
   var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   var offx = rect.left;
@@ -89,6 +88,7 @@
   }
 
   function onMouseDown(e) {
+    if (e.button == 2) { return; }
     drawing = true;
     current.x = (e.clientX || e.touches[0].clientX) - offx;
     current.y = (e.clientY || e.touches[0].clientY) - offy;

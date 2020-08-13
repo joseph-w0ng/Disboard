@@ -147,6 +147,7 @@ io.on('connection', (socket) => {
 
     socket.on('clear', (data) => {
         let room = connectedClients[socket.id];
+        clearTimeout();
         if(room && rooms[room]) {
             rooms[room].history.length = 0;
             socket.to(rooms[room].roomID).emit('clear');
