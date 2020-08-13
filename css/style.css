@@ -48,9 +48,9 @@ body {
 
 .color.white {
     vertical-align: top;
-    /* height: 47px;
-    width: 79px; */
-    /* line-height: 48px; */
+    height: 35px; 
+    width: 35px;
+    line-height: 35px;
     border: 1px solid;
     border-color: black; 
     /* font-family: sans-serif; */
@@ -60,9 +60,10 @@ body {
 #clear {
     vertical-align: top;
     display: inline-block;
-    /* height: 47px;
-    width: 79px; */
-    /* line-height: 48px; */
+    margin: auto;
+    height: 30px; 
+    width: 30px;
+    line-height: 30px;
     border: 1px solid;
     border-color: red;
     /* font-family: sans-serif;
@@ -72,8 +73,9 @@ body {
 #increaseThickness {
     vertical-align: top;
     display: inline-block;
-    height: 47px;
-    width: 79px;
+    /* height: 47px;
+    width: 79px; */
+    font-size: large;
     line-height: 24px;
     border: 1px solid;
     border-color: red;
@@ -84,8 +86,9 @@ body {
 #decreaseThickness   {
     vertical-align: top;
     display: inline-block;
-    height: 47px;
-    width: 79px;
+    /* height: 47px; */
+    /* width: 79px;  */
+    font-size: large;
     line-height: 24px;
     border: 1px solid;
     border-color: red;
@@ -93,6 +96,17 @@ body {
     text-align: center;
 }
 
+#thickness {
+    vertical-align: top;
+    display: inline-block;
+    line-height: 24px;
+    border: 1px solid;
+    border-color: red;
+    font-size: large;
+    font-family: sans-serif;
+    text-align: center;
+    /* content */
+}
 #room {
     vertical-align: top;
     height: 47px;
