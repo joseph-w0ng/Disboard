@@ -124,8 +124,7 @@ io.on('connection', (socket) => {
         roomInfo.room_name = data.room_name;
         rooms[roomID] = roomInfo;
         connectedClients[socket.id] = roomID;
-        socket.broadcast.emit('list room options', rooms);
-        socket.emit('list room options', rooms);
+        io.emit('list room options', rooms);
     });
 
     socket.on('drawing', (data) => {
@@ -150,10 +149,10 @@ io.on('connection', (socket) => {
         clearTimeout();
         if(room && rooms[room]) {
             rooms[room].history.length = 0;
-            socket.to(rooms[room].roomID).emit('clear');
+            io.in(rooms[room].roomID).emit('clear');
         } else {
             history.length = 0;
-            socket.to('general').emit('clear');
+            io.in('general').emit('clear');
         }
     });
 
@@ -174,8 +173,7 @@ io.on('connection', (socket) => {
             setTimeout(function() {
                 if(rooms[room] && rooms[room].clients.length == 0) {
                     delete(rooms[room]);
-                    socket.broadcast.emit('list room options', rooms);
-                    socket.emit('list room options', rooms);
+                    io.emit('list room options', rooms);
                 }}, 3000);
         }
         console.log(`Client disconnected (id: ${socket.id})`);
