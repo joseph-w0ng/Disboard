@@ -132,9 +132,6 @@ input[type=text] {
 .color.green { background-color: green; }
 .color.blue { background-color: blue; }
 .color.yellow { background-color: yellow; }
-<<<<<<< Updated upstream
-.color.white { background-color: white;}
-=======
 .color.white { background-color: white;}
 
 .black, 
@@ -208,15 +205,8 @@ input[type=text] {
     color: red;
     font-size: 10px;
 }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 
 .h1 {
     font-family: Arial, Helvetica, sans-serif;
     color: blue; 
 }
-
-
-
->>>>>>> Stashed changes
