@@ -111,7 +111,7 @@ io.on('connection', (socket) => {
         const questions = await collection.findOne(query, {projection: {questions: 1 }});
 
         if (questions != null) {
-          io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions});
+          io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions, assignmentId: assignmentId});
         }
         else {
           io.to(clientId).emit('invalidAssignment', assignmentId);
@@ -172,7 +172,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('drawing', (data) => {
-    console.log(data);
+
     if (!(data.roomId in rooms)) {
       return;
     }
