@@ -66,6 +66,7 @@
   
   socket.on('roomError', (roomId) => {
     $('#errorMsg').html(roomId + " is not a valid room.");
+    $('#errorMsg').css('visibility','visible');
   })
   socket.on('nextQuestion', () => { 
     $("#submitWork").show();
@@ -83,7 +84,7 @@
   socket.on('clear', onClearUpdate);
 
   socket.on('roomJoined', (info) => {
-    $('#errorMsg').html('');
+    $('#errorMsg').css('visibility','hidden');
     roomId = info.roomId;
     assignmentId = info.assignmentId;
     questions = info.questions["questions"];
@@ -98,6 +99,7 @@
 
   socket.on('invalidAssignment', (assignmentId) => {
     $('#errorMsg').html(assignmentId + " is not a valid assignment ID.");
+    $('#errorMsg').css('visibility','visible');
   });
 
   window.addEventListener('resize', onResize, false);
