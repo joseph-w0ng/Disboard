@@ -93,29 +93,42 @@ input[type=text] {
 .color.white {
     vertical-align: middle;
     display: inline-block;
-    /* margin: 10px 0; */
+    margin-left: 20px;
+    margin-right: 5px;
     width: 33px;
     height: 35px; 
-    line-height: 35px;
+    border: none;
+    /* line-height: 35px; */
     padding: 0px;
-    border:none;
+    /* border-color:black;
+    border-width: 1px; */
 }
 
 #clear {
+    border: none;
     vertical-align: middle;
     display: inline-block;
-    /* margin: 10px 0; */
     width: 30px;
     height: 38px; 
     line-height: 38px;
     padding: 1px;
-    border:none;
     background-color: transparent;
-    /* border: 1px solid; */
-    /* border-color: red; */
-    /* font-family: sans-serif; */
     
 }
+/* 
+.text {
+    display: inline;
+    position: relative;
+    font-size: 20px;
+    font-weight: bold; 
+} */
+
+#erase { 
+    cursor: pointer; 
+    /* border: black; */
+    /* height: 38px; */
+}
+
 
 #increaseThickness {
     vertical-align: middle;
@@ -125,6 +138,8 @@ input[type=text] {
     background-color: lightgray;
     border: none;
     position: relative;
+    height: 25px; 
+    width: 25px; 
     /* border-color: lightskyblue; */
     /* height: 47px;
     width: 79px; */
@@ -140,24 +155,20 @@ input[type=text] {
     color: white;
     background-color:lightgray;
     border: none;
-    /* height: 47px; */
-    /* width: 79px;  */
+    height: 25px; 
+    width: 25px; 
     /* font-size: large; */
     /* line-height: 24px; */
     /* border-color: lightskyblue; */
     
 }
 
-#erase { 
-    /* background-color: deepskyblue; */
-    cursor: pointer; 
-    border: none;
-    padding: 1px;
-    height: 38px;
-}
 
 #room {
     vertical-align: middle;
+    /* float: right; */
+    margin-left: 25%;
+    margin-right: 25%;
     height: 47px;
     width: 140px;
     line-height: 48px;
@@ -227,7 +238,8 @@ input[type=text] {
     position: absolute;
     bottom: 0;
     right: 0;
-    margin: 10px;
+    margin: 20px;
+
 }
 
 #questions {
@@ -235,7 +247,9 @@ input[type=text] {
     top: 0;
     right: 10px;
     width: fit-content;
+
 }
+
 
 #myCanvas {
     border: 1px solid black;
