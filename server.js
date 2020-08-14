@@ -346,11 +346,12 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log(`Client disconnected (id: ${socket.id})`);
+    
+    let roomId = connectedClients[socket.id];
     if (!(roomId in rooms)) {
       delete connectedClients[socket.id];
       return;
     }
-    let roomId = connectedClients[socket.id];
     let room = rooms[roomId];
     if (room.clients.length === 1) {
       delete rooms[roomId];
