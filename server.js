@@ -156,7 +156,7 @@ io.on('connection', (socket) => {
         const query = { "assignmentid": assignmentId };
         const questions = await collection.findOne(query, {projection: {questions: 1 }});
 
-        if (questions != null) {
+        if (questions != null ) {
           io.to(clientId).emit('roomJoined', {roomId: roomId, questions: questions, assignmentId: assignmentId});
         }
         else {

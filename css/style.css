@@ -45,6 +45,8 @@ body {
 
 .btn.btn-primary {
     margin-bottom: 1rem; 
+    margin-right: 5px;
+    margin-left: 5px;
     background-color: #2081C3 !important; 
     border-color: #2081C3 !important; 
     opacity: 0.7;
@@ -243,3 +245,36 @@ input[type=text] {
     bottom: 0;
     z-index: 10;
   }
+
+#intro-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 320px;
+    justify-content: center;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    /* grid-template-rows: 50px auto; */
+    box-shadow: 0 0 5px black;
+}
+
+input[type=text] {
+    padding-left: 10px;
+    border: 1px solid #cdcdcd;
+    border-color: rgba(0, 0, 0, .15);
+    border-radius: 5px;
+    line-height: 20px;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+input[type=text]:disabled {
+    opacity: 0.5;
+}
+#buttons {
+    justify-content: space-between;
+    margin: auto;
+    display: flex;
+    padding: 10px;
+}
