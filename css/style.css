@@ -329,6 +329,7 @@ input[type=text]:disabled {
 #penThickness {
     vertical-align: middle;
     display: inline-block;
+    font-size: 30px;
     /* color: black;
     border: black;
     border-width: 1px; */
