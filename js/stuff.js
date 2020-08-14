@@ -63,6 +63,7 @@
   });
 
   socket.on('drawing', onDrawingEvent);
+  
   socket.on('roomError', (roomId) => {
     $('#errorMsg').html(roomId + " is not a valid room.");
   })
@@ -272,21 +273,30 @@ function canvasToImage() {
   //return the Base64 encoded data url string
   return imageData;
 }
+var createBtn = document.getElementById("createOption");
+var addBtn = document.getElementById("joinOption");
 
   $('#createOption').click( () => {
     $('#roomId').val('');
     $('#roomId').attr('disabled', true);
     $('#assignmentId').attr('disabled', false);
-    $('#createOption').addClass('selected');
-    $('#joinOption').removeClass('selected');
+
+    createBtn.style.backgroundColor = '#2081C3';
+    createBtn.style.borderColor = '#2081C3';
+    addBtn.style.backgroundColor = '#65b3e6';
+    addBtn.style.borderColor = '#65b3e6';
+
   });
 
   $('#joinOption').click( () => {
     $('#roomId').attr('disabled', false);
     $('#assignmentId').attr('disabled', true);
     $('#assignmentId').val('');
-    $('#createOption').removeClass('selected');
-    $('#joinOption').addClass('selected');
+
+    addBtn.style.backgroundColor = '#2081C3';
+    addBtn.style.borderColor = '#2081C3';
+    createBtn.style.backgroundColor = '#65b3e6';
+    createBtn.style.borderColor = '#65b3e6';
   });
 
   $('#submitWork').click(() => {
