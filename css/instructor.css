@@ -107,7 +107,7 @@ h1, h2, h3, figcaption {
 
 @media (max-width: 978px) {
     .questions {
-        width:100vw;
+        width:95vw;
         margin:0;
     }
     .question-container{
