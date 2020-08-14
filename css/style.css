@@ -125,14 +125,6 @@ input[type=text] {
 #increaseThickness {
     vertical-align: middle;
     display: inline-block;
-    height: 47px;
-    width: 79px;
-    line-height: 24px;
-    border: 1px solid;
-    border-color: red;
-    border-radius: 5px; 
-    font-family: sans-serif;
-    text-align: center;
     /* margin: 10px 0; */
     color: white;
     background-color: lightgray;
@@ -151,14 +143,6 @@ input[type=text] {
 #decreaseThickness   {
     vertical-align: middle;
     display: inline-block;
-    height: 47px;
-    width: 79px;
-    line-height: 24px;
-    border: 1px solid;
-    border-color: red;
-    border-radius: 5px; 
-    font-family: sans-serif;
-    text-align: center;
     /* margin: 10px 0; */
     color: white;
     background-color:lightgray;
@@ -187,7 +171,6 @@ input[type=text] {
     line-height: 48px;
     border: 1px solid;
     border-color: black;
-    border-radius: 5px; 
     font-family: sans-serif;
     text-align: center;
     display: inline-block;
@@ -332,21 +315,6 @@ input[type=text]:disabled {
 }
 input {
     width: 280px;
-}
-/* #errorMsg {
-    visibility: hidden;
-} */
-
-#getAssignmentSubmissions {
-    background-color: #2081C3;
-    border-color: #2081c3;
-    color: white; 
-    border-radius: 5px; 
-}
-
-#getAssignmentSubmissions:hover {
-    background-color: #00a4e6; 
-    border-color: #00a4e6; 
 }
 
 #penThickness {
