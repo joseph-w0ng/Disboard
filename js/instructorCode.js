@@ -93,11 +93,21 @@
             $("#assignmentSubmissions").append(new_input);
         } else {
             $("#assignmentSubmissions").append("<br><header class='w3-container w3-xlarge w3-padding-16 header'><span class='w3-center'><h2 style='text-align:left'>Assignment responses for "+ assignmentId + ":</h2></span></header>");
+            
             for (let question of data.submissions) {
                 $("#assignmentSubmissions").append("<h3>Question " + question.question + ":</h3>");
                 var new_input = "<div class='question-container'>";
+                var val = 200;
                 for (let submission of question.submissions) {
+                    
                     new_input += "<div class='individual-submission'><image style='border:1px solid;width:200px;height:200px' src='"+submission.data+"'><figcaption>Students: " + submission.students.join(', ') + "</figcaption></div><br>";
+                    val+=200;
+                    if (val > $(window).width()) {
+                        new_input += "<br>";
+                        val = 200;
+                    }
+
+
                     // let students = "<figcaption>Students: " + submission.students.join(', ') + "</figcaption></div>";
                     
                     // $("#assignmentSubmissions").append(students);

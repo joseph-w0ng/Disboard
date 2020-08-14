@@ -99,6 +99,7 @@ h1, h2, h3, figcaption {
 }
 .question-container{
     display:flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
 
