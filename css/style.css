@@ -47,31 +47,34 @@ body {
 }
 
 .color.white {
-    vertical-align: top;
-    height: 35px; 
+    vertical-align: middle;
+    display: inline-block;
+    margin: auto;
     width: 33px;
+    height: 35px; 
     line-height: 35px;
-    /* border: 1px solid; */
-    /* border-color: black;  */
-    /* font-family: sans-serif; */
-    /* text-align: center; */
+    padding: 0px;
+    border:none;
 }
 
 #clear {
-    vertical-align: top;
+    vertical-align: middle;
     display: inline-block;
     margin: auto;
-    width: 26px;
-    height: 35px; 
-    line-height: 35px;
+    width: 30px;
+    height: 38px; 
+    line-height: 38px;
+    padding: 1px;
+    border:none;
+    background-color: dodgerblue;;
     /* border: 1px solid; */
     /* border-color: red; */
-    /* font-family: sans-serif;
-    text-align: center; */
+    /* font-family: sans-serif; */
+    
 }
 
 #increaseThickness {
-    vertical-align: top;
+    vertical-align: middle;
     display: inline-block;
     color: white;
     background-color: lightgray;
@@ -85,7 +88,7 @@ body {
 }
 
 #decreaseThickness   {
-    vertical-align: top;
+    vertical-align: middle;
     display: inline-block;
     color: white;
     background-color:lightgray;
@@ -97,13 +100,17 @@ body {
     /* border-color: lightskyblue; */
     
 }
-/* 
-.button { 
-    border-color: lightskyblue;
-} */
+
+#erase { 
+    background-color: deepskyblue;
+    cursor: pointer; 
+    border: none;
+    padding: 1px;
+    height: 38px;
+}
 
 #room {
-    vertical-align: top;
+    vertical-align: middle;
     height: 47px;
     width: 140px;
     line-height: 48px;
@@ -214,7 +221,7 @@ body {
     border: 1px solid;
     border-color: red;
     display:inline-block;
-    vertical-align: top;
+    vertical-align: middle;
 
 } 
 .bar1, .bar2, .bar3 {
