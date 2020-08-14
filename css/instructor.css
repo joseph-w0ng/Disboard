@@ -1,0 +1,64 @@
+input {
+    width: 280px;
+}
+
+button {
+    color:white;
+    border: #4d94ff;
+    background-color: #4d94ff;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 1.4em;
+}
+button:hover {
+    background-color: #0052cc;
+    border-color: #0052cc;
+    /* opacity: 1.0; */
+}
+
+.header {
+    background-color: #3888ff;
+    color:white;
+    margin:0;
+    /* padding: 0px; */
+    width: 100vw;
+  }
+.inputTextGroup {
+      display:flex;
+      flex-direction: row;
+      justify-content: center;
+      margin:auto;
+  }
+  input[type=text] {
+    padding-left: 10px;
+    border: 1px solid #868484;
+    border-color: #868484;
+    border-radius: 5px;
+    line-height: 20px;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+input {
+    border: black;
+}
+
+h1 {
+    margin-left: 15px;
+    font-family: 'Source Serif Pro', serif;
+}
+
+.largeContainer {
+    display:flex !important;
+    justify-self: center !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    justify-items: center !important;
+
+}
+
+#assignmentQuestions {
+    align-self: center !important;
+}
+#inputs, #assignmentDescription {
+    font-family: 'Source Serif Pro', serif
+}

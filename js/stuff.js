@@ -43,16 +43,23 @@
   for (var i = 0; i < colors.length; i++){
     colors[i].addEventListener('click', onColorUpdate, false);
   }
+
+  const thicknessElement = document.getElementById('penThickness');
+  thicknessElement.innerText = lineWidth;
+
   clear.addEventListener('click', onClear, false);
   $('#increaseThickness').click(() => {
     lineWidth++;
+    thicknessElement.innerText = lineWidth;
   });
 
   $('#decreaseThickness').click(() => {
-    if (lineWidth > 1)
+    if (lineWidth > 1) {
       lineWidth--;
+      thicknessElement.innerText = lineWidth;
+    }
   });
-
+  
   socket.on('submitWorkFailed', (data) => {
     $("#submitError").html("Submission failed, please try again");
     $("#submitWork").show();
@@ -63,8 +70,10 @@
   });
 
   socket.on('drawing', onDrawingEvent);
+  
   socket.on('roomError', (roomId) => {
     $('#errorMsg').html(roomId + " is not a valid room.");
+    $('#errorMsg').css('visibility','visible');
   })
   socket.on('nextQuestion', () => { 
     $("#submitWork").show();
@@ -82,7 +91,7 @@
   socket.on('clear', onClearUpdate);
 
   socket.on('roomJoined', (info) => {
-    $('#errorMsg').html('');
+    $('#errorMsg').css('visibility','hidden');
     roomId = info.roomId;
     assignmentId = info.assignmentId;
     questions = info.questions["questions"];
@@ -97,6 +106,7 @@
 
   socket.on('invalidAssignment', (assignmentId) => {
     $('#errorMsg').html(assignmentId + " is not a valid assignment ID.");
+    $('#errorMsg').css('visibility','visible');
   });
 
   window.addEventListener('resize', onResize, false);
@@ -272,17 +282,30 @@ function canvasToImage() {
   //return the Base64 encoded data url string
   return imageData;
 }
+var createBtn = document.getElementById("createOption");
+var addBtn = document.getElementById("joinOption");
 
   $('#createOption').click( () => {
     $('#roomId').val('');
     $('#roomId').attr('disabled', true);
     $('#assignmentId').attr('disabled', false);
+
+    createBtn.style.backgroundColor = '#2081C3';
+    createBtn.style.borderColor = '#2081C3';
+    addBtn.style.backgroundColor = '#65b3e6';
+    addBtn.style.borderColor = '#65b3e6';
+
   });
 
   $('#joinOption').click( () => {
     $('#roomId').attr('disabled', false);
     $('#assignmentId').attr('disabled', true);
     $('#assignmentId').val('');
+
+    addBtn.style.backgroundColor = '#2081C3';
+    addBtn.style.borderColor = '#2081C3';
+    createBtn.style.backgroundColor = '#65b3e6';
+    createBtn.style.borderColor = '#65b3e6';
   });
 
   $('#submitWork').click(() => {

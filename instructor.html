@@ -7,12 +7,10 @@
 
     <meta name="description" content="HTML5 canvas real-time drawing using socket.io">
     <meta name="keywords" content="whiteboard, drawing, socket-io, socketio, javascript">
-<<<<<<< HEAD
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-=======
-
->>>>>>> 0f2fc32ec99f3f8976bc1570dc99d48e0f765277
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="css/instructor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet">
     <style>
         body {
             overflow: auto !important
@@ -21,61 +19,48 @@
 </head>
 
 <body>
-    <div>
-        <h1>Assignments Menu</h1>
-        <input id="userId" disabled hidden type="text" placeholder="Enter Instructor ID"></input>
-        <input id="assignmentId" type="text" placeholder="Enter Assignment ID"></input>
-        <!--<button id="newAssignmentSubmit" type=submit>Create a New Assignment</button>-->
-        <!-- <button id="getAssignmentSubmit" type=submit>Create/Get Assignment Questions</button> -->
-<<<<<<< HEAD
-        <button id="getAssignmentSubmissions">Get Assignment Responses</button>
-=======
-        <!-- This is to create an asssignment -->
-        <button id="getAssignmentSubmissions">Create Assignment</button>
->>>>>>> 0f2fc32ec99f3f8976bc1570dc99d48e0f765277
-    </div>
+    <header class="w3-container w3-xlarge w3-padding-16 header">
+        <span class="w3-center"><h1>Assignments Menu</h1></span>
+        
+      </header>
+      <br>
+    <div class ="largeContainer">
+        <div class ="inputTextGroup">
 
-    <!--<div>
-        <h1>Get Assignment</h1>
-        <input id="getAssignmentInstructorId" type="text" placeholder="Enter Instructor ID"></input>
-        <input id="getAssignmentId" type="text" placeholder="Enter Assignment ID"></input>
-        <button id="getAssignmentSubmit">Get assignment</button>
-    </div>-->
-    <!-- <div>
-        <h1>Get Questions by Instructor ID</h1>
-        <input id="userid" type="text" placeholder="Enter Instructor ID (put in 1 lol)"></input>
-        <button id="submitid">Get questions</button>
-    </div> -->
+            
+            <input id="userId" disabled hidden type="text" placeholder="Enter Instructor ID"></input>
+            <input id="assignmentId" type="text" placeholder="Enter Assignment ID"></input>
+    
+            <!-- This is to create an asssignment -->
+            <button id="getAssignmentSubmissions">Edit/Create Assignment</button>
+        </div>
 
-    <div id="assignmentQuestions">
-        <h1>Assignment Details</h1>
-        <div id="assignmentDescription">
+        <div id="assignmentQuestions">
+            <br>
+            <h1 style="text-align:left">Assignment Details</h1>
+            <div id="assignmentDescription">
+
+            </div>
+            <div id="inputs">
+                <input class="questions" type="text" placeholder="Enter your question here">
+            </div>
+            <button id="addQuestions">Add More Questions</button>
+            <button id="submitQuestions">Submit Questions</button>
 
         </div>
-        <div id="inputs">
-            <input class="questions" type="text" placeholder="Enter your question here">
-        </div>
-        <button id="addQuestions">Add More Questions</button>
-        <button id="submitQuestions">Submit Questions</button>
-
-    </div>
-    <div id="result">
-
-    </div>
-    <div style="overflow:auto">
-        <div id="assignmentSubmissions">
+        <div id="result">
 
         </div>
+        <div style="overflow:auto">
+            <div id="assignmentSubmissions">
+
+            </div>
+        </div>
     </div>
-<<<<<<< HEAD
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-=======
-
->>>>>>> 0f2fc32ec99f3f8976bc1570dc99d48e0f765277
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="js/instructorCode.js"></script>
 </body>
 

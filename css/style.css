@@ -36,21 +36,38 @@ body {
 }
 
 .btn {
-    border-radius: 5px !important; 
+    border-radius: 0px; 
 }
 
-.btn.btn-primary {
-    margin-bottom: 1rem; 
-    background-color: #2081C3 !important; 
-    border-color: #2081C3 !important; 
+.btn-primary:active, .btn.btn-primary:hover {
+    background-color: #2081C3;
+    border-color: #2081C3;
+    /* opacity: 1.0; */
 }
 
+ .btn.btn-primary {
+    /* margin-bottom: 1rem; 
+    margin-right: 5px;
+    margin-left: 5px; */
+    /* background-color: #2081C3 !important;  */
+    background-color: #65b3e6;
+    border-color: #65b3e6; 
+    width: 50em;
+    /* opacity: 0.7; */
+}
+
+.selected {
+    opacity: 1;
+}
 .btn.btn-secondary {
     margin-bottom: 5px; 
     background-color: #63D2FF; 
     border-color: #63D2FF;
+    width: 280px;
 }
-
+.btn.btn-secondary:hover {
+    background-color: #00a4e6;
+}
 a {
     color: #2081C3; 
 }
@@ -81,32 +98,32 @@ input[type=text] {
 }
 
 .color.white {
-    vertical-align: top;
-    height: 47px;
-    width: 79px;
-    line-height: 48px;
-    border: 1px solid;
-    border-color: black;
-    border-radius: 5px; 
-    font-family: sans-serif;
-    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 5px;
+    width: 33px;
+    height: 35px; 
+    border: none;
+    /* line-height: 35px; */
+    padding: 0px;
+    /* border-color:black;
+    border-width: 1px; */
 }
 
 #clear {
-    vertical-align: top;
+    border: none;
+    vertical-align: middle;
     display: inline-block;
-    height: 47px;
-    width: 79px;
-    line-height: 48px;
-    border: 1px solid;
-    border-color: red;
-    border-radius: 5px; 
-    font-family: sans-serif;
-    text-align: center;
+    width: 30px;
+    height: 38px; 
+    line-height: 38px;
+    padding: 1px;
+    background-color: transparent;
+    
 }
-
 #increaseThickness {
-    vertical-align: top;
+    vertical-align: middle;
     display: inline-block;
     height: 47px;
     width: 79px;
@@ -116,10 +133,23 @@ input[type=text] {
     border-radius: 5px; 
     font-family: sans-serif;
     text-align: center;
+    /* margin: 10px 0; */
+    color: white;
+    background-color: lightgray;
+    border: none;
+    position: relative;
+    height: 25px; 
+    width: 25px; 
+    /* border-color: lightskyblue; */
+    /* height: 47px;
+    width: 79px; */
+    /* font-size: large;
+    line-height: 24px; */
+    /* font-family: sans-serif; */
 }
 
 #decreaseThickness   {
-    vertical-align: top;
+    vertical-align: middle;
     display: inline-block;
     height: 47px;
     width: 79px;
@@ -129,12 +159,31 @@ input[type=text] {
     border-radius: 5px; 
     font-family: sans-serif;
     text-align: center;
+    /* margin: 10px 0; */
+    color: white;
+    background-color:lightgray;
+    border: none;
+    height: 25px; 
+    width: 25px; 
+    /* font-size: large; */
+    /* line-height: 24px; */
+    /* border-color: lightskyblue; */
+    
+}
+
+#erase { 
+    cursor: pointer; 
+    /* border: black; */
+    /* height: 38px; */
 }
 
 #room {
-    vertical-align: top;
+    vertical-align: middle;
+    /* float: right; */
+    margin-left: 25%;
+    margin-right: 25%;
     height: 47px;
-    width: 140px;
+    width: 190px;
     line-height: 48px;
     border: 1px solid;
     border-color: black;
@@ -143,6 +192,7 @@ input[type=text] {
     text-align: center;
     display: inline-block;
 }
+
 
 .color.black { background-color: black; }
 .color.red { background-color: red; }
@@ -222,9 +272,8 @@ input[type=text] {
     font-size: 10px;
 }
 
-.h1 {
-    font-family: Arial, Helvetica, sans-serif;
-    color: blue; 
+h1 {
+    font-family: 'Source Serif Pro', serif;
 }
 
 #overlay:not(#exclude){
@@ -298,4 +347,28 @@ input {
 #getAssignmentSubmissions:hover {
     background-color: #00a4e6; 
     border-color: #00a4e6; 
+}
+
+#penThickness {
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 30px;
+    /* color: black;
+    border: black;
+    border-width: 1px; */
+}
+
+#submitWork {
+    color:white;
+    border: #4d94ff;
+    background-color: #4d94ff;
+    border-radius: 5px;
+    padding: 5px;
+    
+    margin: 1.4em;
+}
+#submitWork:hover {
+    background-color: #0052cc;
+    border-color: #0052cc;
+    /* opacity: 1.0; */
 }
