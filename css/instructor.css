@@ -95,20 +95,21 @@ h1, h2, h3, figcaption {
 .individual-submission {
     display:flex;
     flex-direction: column;
+    flex-wrap:wrap;
     margin:5px;
 }
 .question-container{
     display:flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;;
 
 }
 
 @media (max-width: 978px) {
     .questions {
         width:95vw;
-        margin:0;
+        margin:auto;
     }
     .question-container{
         display:flex;
@@ -117,8 +118,19 @@ h1, h2, h3, figcaption {
     
     }
     img {
+        position: relative;
+        display: inline;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    figcaption {
         display: block;
         margin-left: auto;
         margin-right: auto;
     }
+    
+}
+
+figcaption {
+    width: 200px;
 }

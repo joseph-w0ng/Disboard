@@ -100,7 +100,7 @@
                 var val = 200;
                 for (let submission of question.submissions) {
                     
-                    new_input += "<div class='individual-submission'><image style='border:1px solid;width:200px;height:200px' src='"+submission.data+"'><figcaption>Students: " + submission.students.join(', ') + "</figcaption></div><br>";
+                    new_input += "<div class='individual-submission'><img onclick='onClick(this)' style='border:1px solid;width:200px;height:200px' src='"+submission.data+"'><figcaption>Students: " + submission.students.join(', ') + "</figcaption></div><br>";
                     val+=200;
                     if (val > $(window).width()) {
                         new_input += "<br>";
@@ -122,3 +122,9 @@
     })
 
 })();
+
+function onClick(element) {
+    console.log('hi');
+    document.getElementById("img01").src = element.src;
+    document.getElementById("modal01").style.display = "block";
+  }
