@@ -98,56 +98,76 @@ input[type=text] {
 }
 
 .color.white {
-    vertical-align: top;
-    height: 47px;
-    width: 79px;
-    line-height: 48px;
-    border: 1px solid;
-    border-color: black;
-    font-family: sans-serif;
-    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 5px;
+    width: 33px;
+    height: 35px; 
+    border: none;
+    /* line-height: 35px; */
+    padding: 0px;
+    /* border-color:black;
+    border-width: 1px; */
 }
 
 #clear {
-    vertical-align: top;
+    border: none;
+    vertical-align: middle;
     display: inline-block;
-    height: 47px;
-    width: 79px;
-    line-height: 48px;
-    border: 1px solid;
-    border-color: red;
-    font-family: sans-serif;
-    text-align: center;
+    width: 30px;
+    height: 38px; 
+    line-height: 38px;
+    padding: 1px;
+    background-color: transparent;
+    
 }
-
 #increaseThickness {
-    vertical-align: top;
+    vertical-align: middle;
     display: inline-block;
-    height: 47px;
-    width: 79px;
-    line-height: 24px;
-    border: 1px solid;
-    border-color: red;
-    font-family: sans-serif;
-    text-align: center;
+    /* margin: 10px 0; */
+    color: white;
+    background-color: lightgray;
+    border: none;
+    position: relative;
+    height: 25px; 
+    width: 25px; 
+    /* border-color: lightskyblue; */
+    /* height: 47px;
+    width: 79px; */
+    /* font-size: large;
+    line-height: 24px; */
+    /* font-family: sans-serif; */
 }
 
 #decreaseThickness   {
-    vertical-align: top;
+    vertical-align: middle;
     display: inline-block;
-    height: 47px;
-    width: 79px;
-    line-height: 24px;
-    border: 1px solid;
-    border-color: red;
-    font-family: sans-serif;
-    text-align: center;
+    /* margin: 10px 0; */
+    color: white;
+    background-color:lightgray;
+    border: none;
+    height: 25px; 
+    width: 25px; 
+    /* font-size: large; */
+    /* line-height: 24px; */
+    /* border-color: lightskyblue; */
+    
+}
+
+#erase { 
+    cursor: pointer; 
+    /* border: black; */
+    /* height: 38px; */
 }
 
 #room {
-    vertical-align: top;
+    vertical-align: middle;
+    /* float: right; */
+    margin-left: 25%;
+    margin-right: 25%;
     height: 47px;
-    width: 140px;
+    width: 190px;
     line-height: 48px;
     border: 1px solid;
     border-color: black;
@@ -155,6 +175,7 @@ input[type=text] {
     text-align: center;
     display: inline-block;
 }
+
 
 .color.black { background-color: black; }
 .color.red { background-color: red; }
@@ -295,6 +316,12 @@ input[type=text]:disabled {
 input {
     width: 280px;
 }
-/* #errorMsg {
-    visibility: hidden;
-} */
+
+#penThickness {
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 30px;
+    /* color: black;
+    border: black;
+    border-width: 1px; */
+}

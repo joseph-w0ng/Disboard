@@ -43,16 +43,23 @@
   for (var i = 0; i < colors.length; i++){
     colors[i].addEventListener('click', onColorUpdate, false);
   }
+
+  const thicknessElement = document.getElementById('penThickness');
+  thicknessElement.innerText = lineWidth;
+
   clear.addEventListener('click', onClear, false);
   $('#increaseThickness').click(() => {
     lineWidth++;
+    thicknessElement.innerText = lineWidth;
   });
 
   $('#decreaseThickness').click(() => {
-    if (lineWidth > 1)
+    if (lineWidth > 1) {
       lineWidth--;
+      thicknessElement.innerText = lineWidth;
+    }
   });
-
+  
   socket.on('submitWorkFailed', (data) => {
     $("#submitError").html("Submission failed, please try again");
     $("#submitWork").show();
