@@ -110,7 +110,7 @@ input[type=text] {
     line-height: 38px;
     padding: 1px;
     border:none;
-    background-color: dodgerblue;;
+    background-color: transparent;
     /* border: 1px solid; */
     /* border-color: red; */
     /* font-family: sans-serif; */
@@ -146,7 +146,7 @@ input[type=text] {
 }
 
 #erase { 
-    background-color: deepskyblue;
+    /* background-color: deepskyblue; */
     cursor: pointer; 
     border: none;
     padding: 1px;
