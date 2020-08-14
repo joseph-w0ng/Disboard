@@ -51,8 +51,8 @@ body {
     height: 35px; 
     width: 33px;
     line-height: 35px;
-    border: 1px solid;
-    border-color: black; 
+    /* border: 1px solid; */
+    /* border-color: black;  */
     /* font-family: sans-serif; */
     /* text-align: center; */
 }
@@ -64,8 +64,8 @@ body {
     width: 26px;
     height: 35px; 
     line-height: 35px;
-    border: 1px solid;
-    border-color: red;
+    /* border: 1px solid; */
+    /* border-color: red; */
     /* font-family: sans-serif;
     text-align: center; */
 }
@@ -73,40 +73,35 @@ body {
 #increaseThickness {
     vertical-align: top;
     display: inline-block;
+    color: white;
+    background-color: lightgray;
+    border: 0px solid;
+    /* border-color: lightskyblue; */
     /* height: 47px;
     width: 79px; */
-    font-size: large;
-    line-height: 24px;
-    border: 1px solid;
-    border-color: red;
-    font-family: sans-serif;
-    text-align: center;
+    /* font-size: large;
+    line-height: 24px; */
+    /* font-family: sans-serif; */
 }
 
 #decreaseThickness   {
     vertical-align: top;
     display: inline-block;
+    color: white;
+    background-color:lightgray;
+    border: 0px solid;
     /* height: 47px; */
     /* width: 79px;  */
-    font-size: large;
-    line-height: 24px;
-    border: 1px solid;
-    border-color: red;
-    font-family: sans-serif;
-    text-align: center;
+    /* font-size: large; */
+    /* line-height: 24px; */
+    /* border-color: lightskyblue; */
+    
 }
+/* 
+.button { 
+    border-color: lightskyblue;
+} */
 
-#thickness {
-    vertical-align: top;
-    display: inline-block;
-    line-height: 24px;
-    border: 1px solid;
-    border-color: red;
-    font-size: large;
-    font-family: sans-serif;
-    text-align: center;
-    /* content */
-}
 #room {
     vertical-align: top;
     height: 47px;
@@ -215,10 +210,12 @@ body {
 
 /* menu*/
 #menu {
-    position: absolute;
+    
     border: 1px solid;
     border-color: red;
     display:inline-block;
+    vertical-align: top;
+
 } 
 .bar1, .bar2, .bar3 {
     width: 40px;

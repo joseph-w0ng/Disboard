@@ -347,3 +347,7 @@ window.onclick = function(event) {
         }
     }
 }
+
+function change(y) {
+  y.classList.toggle("rotate");
+}
