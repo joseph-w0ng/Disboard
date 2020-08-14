@@ -349,15 +349,15 @@ var addBtn = document.getElementById("joinOption");
 
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
-function palletView() {
+function paletteView() {
     console.log("Image Clicked");
-    document.getElementById("pallet").classList.toggle("show");
+    document.getElementById("palette").classList.toggle("show");
     document.getElementById("overlay").style.display = "block";
 }
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
-    if (!event.target.matches('#pallet-icon') && !event.target.matches('#pallet')) {
+    if (!event.target.matches('#palette-icon') && !event.target.matches('#palette')) {
         document.getElementById("overlay").style.display = "none";
         var dropdowns = document.getElementsByClassName("overflow-content");
         var i;
