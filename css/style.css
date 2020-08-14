@@ -295,6 +295,11 @@ input[type=text]:disabled {
     margin-bottom: 2em;
     width: 280px;
 }
+@media (max-width: 978px) {
+    #buttons {
+        margin:auto;
+    }
+}
 
 #createOption {
     background-color: #2081C3;
