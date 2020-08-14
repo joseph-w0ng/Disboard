@@ -17,7 +17,7 @@
         assignmentId = $("#assignmentId").val().trim();
 
         if (assignmentId === "") {
-            $("#result").append("<p>Please enter an Assignment ID above.</p>");
+            $("#result").append("<p class ='pls-msg'>Please enter an Assignment ID above.</p>");
             return;
         }
 
@@ -37,7 +37,7 @@
     });
 
     $("#addQuestions").click(() => {
-        var new_input = "<input type='text' class='questions'><br>";
+        var new_input = "<label><input type='text' class='questions'></label><br>";
         $("#inputs").append(new_input);
     });
 
@@ -92,15 +92,19 @@
             var new_input = "<p>No submissions yet...</p>"
             $("#assignmentSubmissions").append(new_input);
         } else {
-            $("#assignmentSubmissions").append("<h2>Assignment responses for "+ assignmentId + ":</h2>");
+            $("#assignmentSubmissions").append("<br><header class='w3-container w3-xlarge w3-padding-16 header'><span class='w3-center'><h2 style='text-align:left'>Assignment responses for "+ assignmentId + ":</h2></span></header>");
             for (let question of data.submissions) {
-                $("#assignmentSubmissions").append("<h3>Question " + question.question + ":</h3><br/>");
+                $("#assignmentSubmissions").append("<h3>Question " + question.question + ":</h3>");
+                var new_input = "<div class='question-container'>";
                 for (let submission of question.submissions) {
-                    var new_input = "<image style='border:1px solid;width:200px;height:200px' src='"+submission.data+"'>";
-                    let students = "<figcaption>Students: " + submission.students.join(', ') + "</figcaption>";
-                    $("#assignmentSubmissions").append(new_input);
-                    $("#assignmentSubmissions").append(students);
+                    new_input += "<div class='individual-submission'><image style='border:1px solid;width:200px;height:200px' src='"+submission.data+"'><figcaption>Students: " + submission.students.join(', ') + "</figcaption></div><br>";
+                    // let students = "<figcaption>Students: " + submission.students.join(', ') + "</figcaption></div>";
+                    
+                    // $("#assignmentSubmissions").append(students);
                 }
+                new_input += "</div<br>";
+                $("#assignmentSubmissions").append(new_input);
+                // $("#assignmentSubmissions").append("</div>");
             }
         }
         $("#assignmentQuestions").show();
