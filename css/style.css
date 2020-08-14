@@ -229,7 +229,7 @@ input[type=text] {
 }
 
 #questions {
-    position: absolute;
+    vertical-align: right;
     top: 0;
     right: 10px;
     width: fit-content;
