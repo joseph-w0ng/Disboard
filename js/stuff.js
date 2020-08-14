@@ -324,7 +324,7 @@ var addBtn = document.getElementById("joinOption");
     assignmentId = $('#assignmentId').val();
 
     $('#name').val('');
-    $('#assignentId').val('');
+    $('#assignmentId').val('');
 
     if ($('#roomId').is(':disabled')) {
       let info = {
@@ -332,7 +332,6 @@ var addBtn = document.getElementById("joinOption");
         assignmentId: assignmentId
       };
       
-
       socket.emit('create', info);
     }
     else {

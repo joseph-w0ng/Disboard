@@ -34,6 +34,9 @@ h1 {
     touch-action: none;
     margin: 1.5rem; 
 } */
+body {
+    overflow: hidden;
+}
 
 .btn {
     border-radius: 0px; 
