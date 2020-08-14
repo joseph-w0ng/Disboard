@@ -11,5 +11,5 @@ Disboard is a collaborative whiteboard for students to share a platform and enga
   - Deploy to students by provided an assignment ID.
   - View all responses in an instructor view that can be shared with others.
   
-  # **Try it out!**
-  [Disboard](https://disboardedu.herokuapp.com/)
+# **Try it out!**
+[Disboard](https://disboardedu.herokuapp.com/)
