@@ -87,6 +87,7 @@ input[type=text] {
     line-height: 48px;
     border: 1px solid;
     border-color: black;
+    border-radius: 5px; 
     font-family: sans-serif;
     text-align: center;
 }
@@ -99,6 +100,7 @@ input[type=text] {
     line-height: 48px;
     border: 1px solid;
     border-color: red;
+    border-radius: 5px; 
     font-family: sans-serif;
     text-align: center;
 }
@@ -111,6 +113,7 @@ input[type=text] {
     line-height: 24px;
     border: 1px solid;
     border-color: red;
+    border-radius: 5px; 
     font-family: sans-serif;
     text-align: center;
 }
@@ -123,6 +126,7 @@ input[type=text] {
     line-height: 24px;
     border: 1px solid;
     border-color: red;
+    border-radius: 5px; 
     font-family: sans-serif;
     text-align: center;
 }
@@ -134,6 +138,7 @@ input[type=text] {
     line-height: 48px;
     border: 1px solid;
     border-color: black;
+    border-radius: 5px; 
     font-family: sans-serif;
     text-align: center;
     display: inline-block;
