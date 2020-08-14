@@ -41,6 +41,7 @@ var counter = 0;
 // Serve the static files
 app.use('/css', express.static(`${__dirname}/css`));
 app.use('/js', express.static(`${__dirname}/js`));
+app.use('/images', express.static(`${__dirname}/images`));
 app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/index.html`);
 });
