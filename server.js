@@ -362,6 +362,14 @@ io.on('connection', (socket) => {
     room.clients.splice(i, 1);
     delete connectedClients[socket.id];
   });
+
+  socket.on('deleteRoom', (roomId) => {
+    let room = rooms[roomId];
+    for (let client of room.clients) {
+      delete connectedClients[client.clientId];
+    }
+    delete rooms[roomId];
+  });
 });
 
 // Start the server

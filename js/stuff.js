@@ -83,6 +83,8 @@
       $("#container").hide();
       $("#intro-wrapper").show();
       counter = 0;
+      roomId = null;
+      socket.emit('deleteRoom', roomId);
       return;
     }
     $('#questionText').html("Problem:" + questions[counter]); // update the question
@@ -317,6 +319,8 @@ var addBtn = document.getElementById("joinOption");
       questionNumber: counter + 1
     }
     socket.emit('submitWork', packet);
+
+    // need to tell server to delete room
   });
 
   $('#enterRoom').click( () => {
