@@ -11,5 +11,15 @@ Disboard is a collaborative whiteboard for students to share a platform and enga
   - Deploy to students by provided an assignment ID.
   - View all responses in an instructor view that can be shared with others.
   
+# **Future Ideas**
+- **User authentication** : Users will soon be able to create accounts to store their assignments and submissions under their name. This also paves the way for room chat (see below)
+- **LaTeX** support: Instructors will be able to create math questions using the popular LaTeX syntax, allowing students to answer math questions in free-form drawing
+- **Chat** : Students will be able to discuss their whiteboard collaboration via an in-room text chat
+- **Miscellaneous** : Multi-color support is on the horizon! Then we can all be Bob Ross
+ 
+# **Credits**
+- Basic socket.io whiteboard: https://github.com/socketio/socket.io/tree/master/examples/whiteboard
+- Logo: Icons8 (https://icons8.com/icon/13369/paint-palette%22%3E)
+
 # **Try it out!**
 [Disboard](https://disboardedu.herokuapp.com/)
