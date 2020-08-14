@@ -325,3 +325,18 @@ input {
     border: black;
     border-width: 1px; */
 }
+
+#submitWork {
+    color:white;
+    border: #4d94ff;
+    background-color: #4d94ff;
+    border-radius: 5px;
+    padding: 5px;
+    
+    margin: 1.4em;
+}
+#submitWork:hover {
+    background-color: #0052cc;
+    border-color: #0052cc;
+    /* opacity: 1.0; */
+}
