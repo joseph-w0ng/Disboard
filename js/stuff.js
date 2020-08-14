@@ -277,12 +277,16 @@ function canvasToImage() {
     $('#roomId').val('');
     $('#roomId').attr('disabled', true);
     $('#assignmentId').attr('disabled', false);
+    $('#createOption').addClass('selected');
+    $('#joinOption').removeClass('selected');
   });
 
   $('#joinOption').click( () => {
     $('#roomId').attr('disabled', false);
     $('#assignmentId').attr('disabled', true);
     $('#assignmentId').val('');
+    $('#createOption').removeClass('selected');
+    $('#joinOption').addClass('selected');
   });
 
   $('#submitWork').click(() => {

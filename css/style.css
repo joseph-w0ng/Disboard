@@ -39,12 +39,20 @@ body {
     border-radius: 5px !important; 
 }
 
+.btn.btn-primary:hover {
+    opacity: 1.0;
+}
+
 .btn.btn-primary {
     margin-bottom: 1rem; 
     background-color: #2081C3 !important; 
     border-color: #2081C3 !important; 
+    opacity: 0.7;
 }
 
+.selected {
+    opacity: 1;
+}
 .btn.btn-secondary {
     margin-bottom: 5px; 
     background-color: #63D2FF; 
