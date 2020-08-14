@@ -324,7 +324,7 @@ var addBtn = document.getElementById("joinOption");
     assignmentId = $('#assignmentId').val();
 
     $('#name').val('');
-    $('#assignentId').val('');
+    $('#assigmentId').val('');
 
     if ($('#roomId').is(':disabled')) {
       let info = {
