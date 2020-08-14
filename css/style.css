@@ -93,7 +93,7 @@ input[type=text] {
 .color.white {
     vertical-align: middle;
     display: inline-block;
-    margin: auto;
+    /* margin: 10px 0; */
     width: 33px;
     height: 35px; 
     line-height: 35px;
@@ -104,7 +104,7 @@ input[type=text] {
 #clear {
     vertical-align: middle;
     display: inline-block;
-    margin: auto;
+    /* margin: 10px 0; */
     width: 30px;
     height: 38px; 
     line-height: 38px;
@@ -120,9 +120,11 @@ input[type=text] {
 #increaseThickness {
     vertical-align: middle;
     display: inline-block;
+    /* margin: 10px 0; */
     color: white;
     background-color: lightgray;
-    border: 0px solid;
+    border: none;
+    position: relative;
     /* border-color: lightskyblue; */
     /* height: 47px;
     width: 79px; */
@@ -134,9 +136,10 @@ input[type=text] {
 #decreaseThickness   {
     vertical-align: middle;
     display: inline-block;
+    /* margin: 10px 0; */
     color: white;
     background-color:lightgray;
-    border: 0px solid;
+    border: none;
     /* height: 47px; */
     /* width: 79px;  */
     /* font-size: large; */
@@ -321,4 +324,12 @@ input[type=text]:disabled {
     margin: auto;
     display: flex;
     padding: 10px;
+}
+
+#penThickness {
+    vertical-align: middle;
+    display: inline-block;
+    /* color: black;
+    border: black;
+    border-width: 1px; */
 }
