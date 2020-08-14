@@ -8,27 +8,14 @@
 
     var resultDiv = document.getElementById("result");
 
-    // instructorSubmitButton.addEventListener("click", getQuestions, false);
-    // $("#getAssignmentSubmit").click(() => {
-    //     $("#assignmentQuestions").hide();
-    //     userId = $("#userId").val();
-    //     assignmentId = $("#assignmentId").val();
-    //     let info = {
-    //         "userid": userId,
-    //         "assignmentid": assignmentId
-    //     }
-    //     socket.emit("getQuestions", info);
-    // });
-
     $("#getAssignmentSubmissions").click(() => {
-        //$("#getAssignmentSubmit").trigger("click");
+
         $("#assignmentQuestions").hide();
         $("#assignmentSubmissions").hide();
         $("#result").empty();
         userId = $("#userId").val();
         assignmentId = $("#assignmentId").val().trim();
 
-        //if (userId.length <= 0 || assignmentId.length <= 0) {
         if (assignmentId === "") {
             $("#result").append("<p>Please enter an Assignment ID above.</p>");
             return;
@@ -57,12 +44,10 @@
     $("#submitQuestions").click(() => {
         let questions = [];
         $(".questions").each(function(i, question) {
-            //if ($(question).val().length > 0) { //NOTE: If a question is deleted, responses won't match question number
                 questions.push($(question).val());
-            //}
+
         });
-        //userId = $("#userId").val();
-        //assignmentId = $("#assignmentId").val();
+
         let info = {
             "userid": userId, //#aTODO: Add entry box
             "assignmentid": assignmentId, //#TODO: Add entry box
@@ -88,19 +73,7 @@
                 $("#inputs").append(new_input);
             }
         }
-        //$("#assignmentQuestions").show(); //Since we combined 
-        //                                  //functions, show when
-        //                                  //submissions show up instead.
 
-        // var resultHTML = "<table><tr><td>_id</td><td>userid</td><td>assignmentid</td><td>question</td></tr>";
-        // data.questions.forEach(function (question, index) {
-        //     //console.log(question.userid);
-        //     resultHTML += ("<tr><td><button val='"+question._id+"'>"+question._id+"</button</td><td>"+question.userid+"</td><td>"
-        //     +question.assignmentid+"</td><td>"+question.question+"</td></tr>");
-        // });
-
-        // resultHTML += ("</table>");
-        // resultDiv.innerHTML = resultHTML;
     });
 
     socket.on('addQuestionResponse', (data) => {
