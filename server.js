@@ -346,6 +346,15 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log(`Client disconnected (id: ${socket.id})`);
+    let roomId = connectedClients[socket.id];
+    let room = rooms[roomId];
+    if (room.clients.length === 1) {
+      delete rooms[roomId];
+      return;
+    }
+    let i = room.clients.findIndex(client => client.clientId === socket.id);
+ 
+    room.clients.splice(i, 1);
     delete connectedClients[socket.id];
   });
 });
