@@ -165,15 +165,17 @@ input[type=text] {
 }
 
 #room {
+    white-space: nowrap;
+    float:right;
     vertical-align: middle;
+    align-self: flex-end;
     /* float: right; */
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-right: 1em;
     height: 47px;
-    width: 190px;
+    width: 150px;
     line-height: 48px;
-    border: 1px solid;
-    border-color: black;
+    border: none;
+    /* border-color: black; */
     font-family: sans-serif !important;
     text-align: center;
     display: inline-block;
@@ -233,6 +235,7 @@ input[type=text] {
     top: 0;
     right: 10px;
     width: fit-content;
+    height: 3em;
     font-size: 16px;
 }
 
@@ -340,4 +343,9 @@ input {
 #proj-name {
     text-align: center;
     margin: 20px;
+}
+
+h6 {
+    /* white-space: nowrap; */
+    margin-left: 0.5em;
 }
