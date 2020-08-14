@@ -24,11 +24,55 @@ h1 {
     width: 800px;
     height: 600px;
 } */
+
+
+
 body {
     max-height: 100%;
     height: 100%;
     overflow: hidden;
     touch-action: none;
+    margin: 1.5rem; 
+}
+
+.btn {
+    border-radius: 5px !important; 
+}
+
+.btn.btn-primary:hover {
+    opacity: 1.0;
+}
+
+.btn.btn-primary {
+    margin-bottom: 1rem; 
+    margin-right: 5px;
+    margin-left: 5px;
+    background-color: #2081C3 !important; 
+    border-color: #2081C3 !important; 
+    opacity: 0.7;
+}
+
+.selected {
+    opacity: 1;
+}
+.btn.btn-secondary {
+    margin-bottom: 5px; 
+    background-color: #63D2FF; 
+    border-color: #63D2FF;
+}
+
+a {
+    color: #2081C3; 
+}
+
+a:hover { 
+    color: #63D2FF; 
+    text-decoration: none; 
+}
+
+input[type=text] {
+    border-radius: 5px; 
+    margin-bottom: 1px; 
 }
 
 #container {
@@ -128,48 +172,23 @@ body {
 .color.yellow { background-color: yellow; }
 .color.white { background-color: white;}
 
-#submitWork {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin: 10px;
-}
-
-#questions {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    width: fit-content;
-}
-
-#myCanvas {
-    border: 1px solid black;
-}
-
-.error {
-    color: red;
-    font-size: 10px;
-}
-
-.black,
+.black, 
 .red,
-.green,
-.blue,
+.green, 
+.blue, 
 .yellow {
-    border-radius: 50%;
-    behavior: url(PIE.htc);
-    margin: 10px;
+    border-radius: 50%; 
+    behavior: url(PIE.htc); 
+    margin: 10px; 
 }
-
 
 /* The box */
 
 #pallet {
     text-align: center;
-    position: absolute;
+    position: relative;
     background: #dbfcff;
     border-radius: 1em;
-    /* width:150px; */
     margin: 40px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -199,6 +218,34 @@ body {
 
 .show {
     display: block;
+}
+
+#submitWork {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+}
+
+#questions {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    width: fit-content;
+}
+
+#myCanvas {
+    border: 1px solid black;
+}
+
+.error {
+    color: red;
+    font-size: 10px;
+}
+
+.h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: blue; 
 }
 
 #overlay:not(#exclude){
@@ -242,4 +289,36 @@ body {
 }
 .rotate .bar2 {
     opacity: 0;
+}
+#intro-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 320px;
+    justify-content: center;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    /* grid-template-rows: 50px auto; */
+    box-shadow: 0 0 5px black;
+}
+
+input[type=text] {
+    padding-left: 10px;
+    border: 1px solid #cdcdcd;
+    border-color: rgba(0, 0, 0, .15);
+    border-radius: 5px;
+    line-height: 20px;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+input[type=text]:disabled {
+    opacity: 0.5;
+}
+#buttons {
+    justify-content: space-between;
+    margin: auto;
+    display: flex;
+    padding: 10px;
 }

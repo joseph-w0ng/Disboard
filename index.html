@@ -6,6 +6,7 @@
 
     <meta name="description" content="HTML5 canvas real-time drawing using socket.io">
     <meta name="keywords" content="whiteboard, drawing, socket-io, socketio, javascript">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -14,13 +15,13 @@
   <body>
     <div id="intro-wrapper">
       <div id="buttons">
-          <button id="createOption">Create Room</button>
-          <button id="joinOption">Join Room</button>
+          <button id="createOption" class="btn btn-primary">Create Room</button>
+          <button id="joinOption" class="btn btn-primary">Join Room</button>
       </div>
       <input type="text" id="roomId" placeholder="Room ID">
       <input type="text" id="assignmentId" placeholder="Assignment ID">
       <input type="text" id="name" placeholder="Your Name">
-      <button id="enterRoom">Submit</button>
+      <button id="enterRoom" class="btn btn-secondary btn-sm">Submit</button>
       <div class="error">
           <p id="errorMsg"></p>
       </div>

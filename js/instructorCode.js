@@ -124,7 +124,9 @@
                 $("#assignmentSubmissions").append("<h3>Question " + question.question + ":</h3><br/>");
                 for (let submission of question.submissions) {
                     var new_input = "<image style='border:1px solid;width:200px;height:200px' src='"+submission.data+"'>";
+                    let students = "<figcaption>Students: " + submission.students.join(', ') + "</figcaption>";
                     $("#assignmentSubmissions").append(new_input);
+                    $("#assignmentSubmissions").append(students);
                 }
             }
         }
