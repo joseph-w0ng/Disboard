@@ -235,3 +235,62 @@ input[type=text] {
     bottom: 0;
     z-index: 10;
   }
+
+#intro-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 340px;
+    width: 320px;
+    /* justify-content: center; */
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    /* grid-template-rows: 50px auto; */
+    box-shadow: 0 0 5px black;
+}
+
+input[type=text] {
+    padding-left: 10px;
+    border: 1px solid #cdcdcd;
+    border-color: rgba(0, 0, 0, .15);
+    border-radius: 5px;
+    line-height: 20px;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+input[type=text]:disabled {
+    opacity: 0.5;
+}
+#buttons {
+    display: flex;
+    justify-content: center;
+    margin:auto;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    width: 280px;
+}
+
+#createOption {
+    background-color: #2081C3;
+    border-color: #2081C3;
+}
+input {
+    width: 280px;
+}
+/* #errorMsg {
+    visibility: hidden;
+} */
+
+#getAssignmentSubmissions {
+    background-color: #2081C3;
+    border-color: #2081c3;
+    color: white; 
+    border-radius: 5px; 
+}
+
+#getAssignmentSubmissions:hover {
+    background-color: #00a4e6; 
+    border-color: #00a4e6; 
+}
