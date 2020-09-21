@@ -11,8 +11,8 @@ const { count } = require('console');
 const { connected } = require('process');
 
 const { MongoClient } = require("mongodb");
-const uri =
-  "mongodb+srv://react:hackthiseducation@cluster0.uve7a.mongodb.net/hackthis?retryWrites=true&w=majority";
+const uri = "mongodb+srv://jo123:asdf1234@disboard.grvpi.mongodb.net/test"
+//  "mongodb+srv://react:hackthiseducation@cluster0.uve7a.mongodb.net/hackthis?retryWrites=true&w=majority";
 
 const setIntervalAsync = (fn, ms) => {
   fn().then(() => {
